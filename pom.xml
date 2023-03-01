@@ -8,11 +8,13 @@
         <version>3.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.csaba79coder</groupId>
     <artifactId>best-protocol</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>best-protocol</name>
     <description>best-protocol</description>
+
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -21,6 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.version>1.0.0</project.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
