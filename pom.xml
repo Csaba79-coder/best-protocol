@@ -16,8 +16,8 @@
     <name>best-protocol</name>
     <description>best-protocol</description>
     <modules>
-        <module>government-service</module>
         <module>api-contract</module>
+        <module>government-service</module>
     </modules>
 
     <properties>
