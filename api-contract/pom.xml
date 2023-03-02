@@ -17,7 +17,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <version>${project.version}</version>
+        <project.version>${project.version}</project.version>
     </properties>
 
     <dependencies>
@@ -26,14 +26,14 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.swagger</groupId>
+            <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>1.6.2</version>
+            <version>2.2.6</version>
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
-            <version>1.6.0</version>
+            <version>1.6.8</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -45,14 +45,14 @@
             <version>2.0.1.Final</version>
         </dependency>
         <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>2.2.6</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-annotations-api</artifactId>
             <version>9.0.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.threeten</groupId>
+            <artifactId>threetenbp</artifactId>
+            <version>1.5.1</version>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -78,7 +78,7 @@
                             <output>${project.build.directory}/generated-sources/</output>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <apiPackage>com.csaba79coder.api</apiPackage>
-                            <modelPackage>com.csaba79coder.models</modelPackage>
+                            <modelPackage>com.csaba79coder.model</modelPackage>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>

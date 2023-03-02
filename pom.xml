@@ -29,14 +29,6 @@
         <project.version>1.2.0-RELEASE</project.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -51,22 +43,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
-                    <mainClass>com.csaba79coder.BestProtocolAp</mainClass>
+                    <mainClass>com.csaba79coder.bestprotocol.BestProtocolApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

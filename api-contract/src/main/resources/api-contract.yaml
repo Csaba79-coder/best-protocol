@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: Best Protocol
+  description: API Interface and Model for Best Protocol
+  version: 1.0.0
+  contact:
+    email: csabavadasz79@gmail.com
+servers:
+  - url: 'http://localhost:8080'
+tags:
+  - name: government-representative
+
+paths:
+  /api/admin/gov-representatives:
+    get:
+      tags:
+        - government-representative
+      summary: Render all Government Representatives
+      description: Render all Government Representatives from the database
+      operationId: renderAllRepresentatives
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RepresentativeModel'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Representative not found
+        '405':
+          description: Validation exception
+    post:
+      tags:
+        - government-representative
+      summary: Add a new Government Representative
+      description: Add a new Government Representative to the database
+      operationId: addNewRepresentative
+      requestBody:
+        description: Create a new Representative in the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewRepresentativeModel'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepresentativeModel'
+        '405':
+          description: Invalid input
+
+components:
+  schemas:
+
+    RepresentativeModel:
+      type: object
+      properties:
+        id:
+          description: Id of the Representative
+          type: string
+          format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+        createdAt:
+          description: Creation time of Representative entity
+          type: string
+          format: date-time
+          example: '2019-01-21T05:47:08.644'
+        updatedAt:
+          description: Updated time of Representative entity
+          type: string
+          format: date-time
+          example: '2019-01-21T05:47:08.644'
+        createdBy:
+          description: User id who created the Representative entity
+          type: string
+          format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+        updatedBy:
+          description: User id who updated the Representative entity
+          type: string
+          format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+        name:
+          description: Name of the Representative entity
+          type: string
+          example: 'Vadász Csaba'
+        jobTitle:
+          description: Job title of the Government Representative
+          type: string
+          example: "Miniszterelnökséget vezető miniszter"
+        address:
+          description: Address of the Agency
+          type: string
+          example: "2011 Budakalász, Gerinc utca hrsz. 2287/3"
+        phoneNumber:
+          description: Phone number of the Representative entity
+          type: string
+          example: "+36-30-235-6304"
+        email:
+          description: Email of the Representative entity
+          type: string
+          example: 'Vadász Csaba'
+        image:
+          description: Photo of the Representative
+          type: string
+          format: binary
+        note:
+          description: Any extra, useful information
+          type: string
+          example: 'Főosztály megnevezése: '
+        availability:
+          $ref: '#/components/schemas/Availability'
+
+    NewRepresentativeModel:
+      type: object
+      properties:
+        name:
+          description: Name of the Representative entity
+          type: string
+          example: 'Vadász Csaba'
+        jobTitle:
+          description: Job title of the Government Representative
+          type: string
+          example: "Miniszterelnökséget vezető miniszter"
+        address:
+          description: Address of the Agency
+          type: string
+          example: "2011 Budakalász, Gerinc utca hrsz. 2287/3"
+        phoneNumber:
+          description: Phone number of the Representative entity
+          type: string
+          example: "+36-30-235-6304"
+        email:
+          description: Email of the Representative entity
+          type: string
+          example: 'Vadász Csaba'
+        image:
+          description: Photo of the Representative
+          type: string
+          format: binary
+        note:
+          description: Any extra, useful information
+          type: string
+          example: 'Főosztály megnevezése: '
+
+    Availability:
+      type: string
+      enum:
+        - AVAILABLE
+        - ARCHIVE
+        - DELETED
