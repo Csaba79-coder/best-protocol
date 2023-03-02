@@ -152,7 +152,7 @@ components:
         note:
           description: Any extra, useful information
           type: string
-          example: 'Főosztály megnevezése: '
+          example: 'ételérzékenység: nincs, egyéb infó: vegán'
 
     Availability:
       type: string
