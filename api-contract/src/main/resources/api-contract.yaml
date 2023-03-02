@@ -11,13 +11,37 @@ tags:
   - name: government-representative
 
 paths:
-  /api/admin/gov-representatives:
+  /api/admin/gov-representative:
+    post:
+      tags:
+        - government-representative
+      summary: Add a new Government Representative
+      description: Add a new Government Representative to the database
+      operationId: RepresentativeApi.addNewRepresentative
+      requestBody:
+        description: Create a new Representative in the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewRepresentativeModel'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepresentativeModel'
+        '405':
+          description: Invalid input
+
     get:
       tags:
         - government-representative
       summary: Render all Government Representatives
       description: Render all Government Representatives from the database
       operationId: renderAllRepresentatives
+      x-interface-name: RepresentativeApi
       responses:
         '200':
           description: Successful operation
@@ -37,32 +61,9 @@ paths:
           description: Representative not found
         '405':
           description: Validation exception
-    post:
-      tags:
-        - government-representative
-      summary: Add a new Government Representative
-      description: Add a new Government Representative to the database
-      operationId: addNewRepresentative
-      requestBody:
-        description: Create a new Representative in the database
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewRepresentativeModel'
-        required: true
-      responses:
-        '201':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RepresentativeModel'
-        '405':
-          description: Invalid input
 
 components:
   schemas:
-
     RepresentativeModel:
       type: object
       properties:
