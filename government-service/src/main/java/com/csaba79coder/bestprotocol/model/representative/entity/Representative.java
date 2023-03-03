@@ -39,7 +39,7 @@ public class Representative extends Auditable {
     private String email;
 
     @Lob
-    @Column(name = "image",length = 1000, nullable = false)
+    @Column(name = "image",length = Integer.MAX_VALUE, nullable = false)
     private byte[] image;
 
     @Column(name = "note")
@@ -47,5 +47,5 @@ public class Representative extends Auditable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "availability")
-    private Availability availability;
+    private Availability availability = Availability.AVAILABLE;
 }
