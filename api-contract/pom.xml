@@ -82,7 +82,7 @@
                             <language>spring</language>
                             <output>${project.build.directory}/generated-sources/</output>
                             <generateSupportingFiles>false</generateSupportingFiles>
-                            <apiPackage>com.csaba79coder.api</apiPackage>
+                            <apiPackage>com.csaba79coder.bestprotocol.api</apiPackage>
                             <modelPackage>com.csaba79coder.model</modelPackage>
                             <configOptions>
                                 <useTags>true</useTags>

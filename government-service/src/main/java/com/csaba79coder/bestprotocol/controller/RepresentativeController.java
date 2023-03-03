@@ -1,6 +1,6 @@
 package com.csaba79coder.bestprotocol.controller;
 
-import com.csaba79coder.api.GovernmentRepresentativeApi;
+import com.csaba79coder.bestprotocol.api.GovernmentRepresentativeApi;
 import com.csaba79coder.bestprotocol.model.representative.service.RepresentativeService;
 import com.csaba79coder.model.RepresentativeModel;
 import lombok.RequiredArgsConstructor;

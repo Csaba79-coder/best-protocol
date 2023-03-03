@@ -18,8 +18,7 @@ public class RepresentativeService {
     private final RepresentativeRepository representativeRepository;
 
     public RepresentativeModel addNewRepresentative(String name, String jobTitle, String address, String phoneNumber, String email, MultipartFile image, String note) {
-        Representative entity = new Representative();
-        entity = Mapper.mapFieldIntoEntity(name, jobTitle, address, phoneNumber, email, image, note);
+        Representative entity = Mapper.mapFieldIntoEntity(name, jobTitle, address, phoneNumber, email, image, note);
         return Mapper.mapRepresentativeEntityToModel(representativeRepository.save(entity));
     }
 
