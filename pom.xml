@@ -11,9 +11,14 @@
 
     <groupId>com.csaba79coder</groupId>
     <artifactId>best-protocol</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <name>best-protocol</name>
     <description>best-protocol</description>
+    <modules>
+        <module>api-contract</module>
+        <module>government-service</module>
+    </modules>
 
     <properties>
         <java.version>17</java.version>
@@ -21,30 +26,48 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.version>1.0.0-RELEASE</project.version>
+        <project.version>1.2.0-RELEASE</project.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <mainClass>com.csaba79coder.bestprotocol.BestProtocolApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.csaba79coder</groupId>
+                <artifactId>best-protocol</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <scm>
         <developerConnection>scm:git:git@github.com:Csaba79-coder/best-protocol</developerConnection>

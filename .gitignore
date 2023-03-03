@@ -86,3 +86,7 @@ bin/
 
 .env
 .gitkeep
+
+# Project exclude paths
+/api-contract/target/
+/government-service/target/
