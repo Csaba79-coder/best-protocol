@@ -25,6 +25,7 @@ public class RepresentativeController implements GovernmentRepresentativeApi {
 
     @Override
     public ResponseEntity<RepresentativeModel> representativeApiAddNewRepresentative(String name, String jobTitle, String address, String phoneNumber, String email, MultipartFile image, String note) {
-        return null;
+        RepresentativeModel model = representativeService.addNewRepresentative(name, jobTitle, address, phoneNumber, email, image, note);
+        return ResponseEntity.status(201).body(model);
     }
 }
