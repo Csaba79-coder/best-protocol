@@ -11,7 +11,7 @@ tags:
   - name: government-representative
 
 paths:
-  /api/admin/gov-representative:
+  /api/admin/gov-representatives:
     post:
       tags:
         - government-representative
@@ -21,10 +21,11 @@ paths:
       requestBody:
         description: Create a new Representative in the database
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/NewRepresentativeModel'
         required: true
+
       responses:
         '201':
           description: Successful operation
@@ -46,7 +47,7 @@ paths:
         '200':
           description: Successful operation
           content:
-            application/json:
+            multipart/form-data:
               schema:
                 type: array
                 items:
@@ -75,12 +76,12 @@ components:
         createdAt:
           description: Creation time of Representative entity
           type: string
-          format: date-time
+          format: datetime
           example: '2019-01-21T05:47:08.644'
         updatedAt:
           description: Updated time of Representative entity
           type: string
-          format: date-time
+          format: datetime
           example: '2019-01-21T05:47:08.644'
         createdBy:
           description: User id who created the Representative entity
@@ -115,7 +116,7 @@ components:
         image:
           description: Photo of the Representative
           type: string
-          format: binary
+          format: byte
         note:
           description: Any extra, useful information
           type: string
@@ -145,9 +146,9 @@ components:
         email:
           description: Email of the Representative entity
           type: string
-          example: 'Vadász Csaba'
+          example: 'csabavadasz79@gmail.com'
         image:
-          description: Photo of the Representative
+          description: Photo of the Representative - base64 encoded binary content
           type: string
           format: binary
         note:
