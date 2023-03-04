@@ -25,7 +25,6 @@ paths:
             schema:
               $ref: '#/components/schemas/NewRepresentativeModel'
         required: true
-
       responses:
         '201':
           description: Successful operation
@@ -47,7 +46,7 @@ paths:
         '200':
           description: Successful operation
           content:
-            multipart/form-data:
+            application/json:
               schema:
                 type: array
                 items:
