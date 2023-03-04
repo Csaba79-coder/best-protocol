@@ -1,9 +1,9 @@
 package com.csaba79coder.bestprotocol.model.representative.service;
 
+import com.csaba79coder.bestprotocol.model.RepresentativeModel;
 import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import com.csaba79coder.bestprotocol.model.representative.persistence.RepresentativeRepository;
 import com.csaba79coder.bestprotocol.util.mapper.Mapper;
-import com.csaba79coder.model.RepresentativeModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

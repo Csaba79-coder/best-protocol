@@ -17,7 +17,7 @@ paths:
         - government-representative
       summary: Add a new Government Representative
       description: Add a new Government Representative to the database
-      operationId: RepresentativeApi.addNewRepresentative
+      operationId: addNewRepresentative
       requestBody:
         description: Create a new Representative in the database
         content:

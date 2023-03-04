@@ -1,9 +1,9 @@
 package com.csaba79coder.bestprotocol.util.mapper;
 
+import com.csaba79coder.bestprotocol.model.NewRepresentativeModel;
+import com.csaba79coder.bestprotocol.model.RepresentativeModel;
 import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import com.csaba79coder.bestprotocol.util.ImageUtil;
-import com.csaba79coder.model.NewRepresentativeModel;
-import com.csaba79coder.model.RepresentativeModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.multipart.MultipartFile;
 
