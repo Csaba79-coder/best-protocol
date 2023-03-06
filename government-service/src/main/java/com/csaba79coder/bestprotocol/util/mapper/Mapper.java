@@ -20,6 +20,7 @@ public class Mapper {
         entity.setAddress(address);
         entity.setPhoneNumber(phoneNumber);
         entity.setEmail(email);
+        // TODO: SETUP a pic placeholder if pic is not uploaded
         try {
             entity.setImage(ImageUtil.compressImage(image.getBytes()));
         } catch (IOException e) {
