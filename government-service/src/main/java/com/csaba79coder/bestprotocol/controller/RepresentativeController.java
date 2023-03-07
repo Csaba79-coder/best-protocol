@@ -20,8 +20,7 @@ public class RepresentativeController implements GovernmentRepresentativeApi {
 
     @Override
     public ResponseEntity<RepresentativeModel> addNewRepresentative(String name, String jobTitle, String address, String phoneNumber, String email, MultipartFile image, String note) {
-        RepresentativeModel model = representativeService.addNewRepresentative(name, jobTitle, address, phoneNumber, email, image, note);
-        return ResponseEntity.status(201).body(model);
+        return ResponseEntity.status(201).body(representativeService.addNewRepresentative(name, jobTitle, address, phoneNumber, email, image, note));
     }
 
     @Override
