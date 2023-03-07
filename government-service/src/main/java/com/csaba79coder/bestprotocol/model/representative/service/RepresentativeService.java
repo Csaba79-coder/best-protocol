@@ -1,7 +1,6 @@
 package com.csaba79coder.bestprotocol.model.representative.service;
 
 import com.csaba79coder.bestprotocol.model.RepresentativeModel;
-import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import com.csaba79coder.bestprotocol.model.representative.persistence.RepresentativeRepository;
 import com.csaba79coder.bestprotocol.util.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,7 @@ public class RepresentativeService {
     private final RepresentativeRepository representativeRepository;
 
     public RepresentativeModel addNewRepresentative(String name, String jobTitle, String address, String phoneNumber, String email, MultipartFile image, String note) {
-        Representative entity = Mapper.mapFieldIntoEntity(name, jobTitle, address, phoneNumber, email, image, note);
-        return Mapper.mapRepresentativeEntityToModel(representativeRepository.save(entity));
+        return Mapper.mapRepresentativeEntityToModel(representativeRepository.save(Mapper.mapFieldIntoEntity(name, jobTitle, address, phoneNumber, email, image, note)));
     }
 
     public List<RepresentativeModel> renderAllRepresentatives() {
