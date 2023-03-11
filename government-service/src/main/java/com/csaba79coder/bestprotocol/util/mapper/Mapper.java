@@ -13,10 +13,11 @@ public class Mapper {
 
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    public static Representative mapFieldIntoEntity(String name, String jobTitle, String address, String phoneNumber, String email, MultipartFile image, String note) {
+    public static Representative mapFieldIntoEntity(String name, String jobTitle, String government, String address, String phoneNumber, String email, MultipartFile image, String note) {
         Representative entity = new Representative();
         entity.setName(name);
         entity.setJobTitle(jobTitle);
+        entity.setGovernment(government);
         entity.setAddress(address);
         entity.setPhoneNumber(phoneNumber);
         entity.setEmail(email);
@@ -40,6 +41,7 @@ public class Mapper {
                 .updatedBy(entity.getUpdatedBy())
                 .name(entity.getName())
                 .jobTitle(entity.getJobTitle())
+                .government(entity.getGovernment())
                 .address(entity.getAddress())
                 .phoneNumber(entity.getPhoneNumber())
                 .email(entity.getEmail())
