@@ -1,1 +1,37 @@
-<p>representative-list works!</p>
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <!--loop over the collection of donees-->
+        <div *ngFor="let tempRepresentative of representatives" class="col-md-3">
+          <div class="representative-name-box">
+            <img [src]="tempRepresentative.image" alt="{{ tempRepresentative.name}}" class="img-responsive">
+            <h1>{{ tempRepresentative.name }}</h1>
+            <div class="description">
+              {{ tempRepresentative.jobTitle }}
+            </div>
+            <div class="description">
+              {{ tempRepresentative.government }}
+            </div>
+            <div class="description">
+              {{ tempRepresentative.email }}
+            </div>
+            <div class="description">
+              {{ tempRepresentative.phoneNumber }}
+            </div>
+            <div class="description">
+              {{ tempRepresentative.address }}
+            </div>
+            <div class="description">
+              {{ tempRepresentative.note }}
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <a href="#" class="primary-btn">Módosít</a>
+              <a href="#" class="primary-btn">Töröl</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
