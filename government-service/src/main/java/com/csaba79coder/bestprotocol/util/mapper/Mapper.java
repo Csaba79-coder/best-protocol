@@ -24,6 +24,7 @@ public class Mapper {
         try {
             entity.setImage(ImageUtil.compressImage(image.getBytes()));
         } catch (IOException e) {
+
             throw new RuntimeException(e);
         }
         entity.setNote(note);
