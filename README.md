@@ -1,6 +1,6 @@
 ![img.png](img.png)
 
-# BestProtocol backend - Milton Friedman University - Software development project
+# BestProtocol Fullstack Software development project - Milton Friedman University
 
 ## Backend Dependencies
 
