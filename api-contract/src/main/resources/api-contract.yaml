@@ -23,7 +23,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/NewRepresentativeModel'
+              $ref: '#/components/schemas/NewRepresentativeAdminModel'
         required: true
       responses:
         '201':
@@ -31,7 +31,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RepresentativeModel'
+                $ref: '#/components/schemas/RepresentativeAdminModel'
         '405':
           description: Invalid input
 
@@ -50,7 +50,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/RepresentativeModel'
+                  $ref: '#/components/schemas/RepresentativeAdminModel'
         '400':
           description: Bad request
         '401':
@@ -64,7 +64,7 @@ paths:
 
 components:
   schemas:
-    RepresentativeModel:
+    RepresentativeAdminModel:
       type: object
       properties:
         id:
@@ -127,7 +127,7 @@ components:
         availability:
           $ref: '#/components/schemas/Availability'
 
-    NewRepresentativeModel:
+    NewRepresentativeAdminModel:
       type: object
       properties:
         name:

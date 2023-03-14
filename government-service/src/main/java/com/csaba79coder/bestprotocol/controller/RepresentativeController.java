@@ -1,7 +1,7 @@
 package com.csaba79coder.bestprotocol.controller;
 
 import com.csaba79coder.bestprotocol.api.GovernmentRepresentativeApi;
-import com.csaba79coder.bestprotocol.model.RepresentativeModel;
+import com.csaba79coder.bestprotocol.model.RepresentativeAdminModel;
 import com.csaba79coder.bestprotocol.model.representative.service.RepresentativeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,12 @@ public class RepresentativeController implements GovernmentRepresentativeApi {
     private final RepresentativeService representativeService;
 
     @Override
-    public ResponseEntity<RepresentativeModel> addNewRepresentative(String name, String jobTitle, String government, String address, String phoneNumber, String email, MultipartFile image, String note) {
+    public ResponseEntity<RepresentativeAdminModel> addNewRepresentative(String name, String jobTitle, String government, String address, String phoneNumber, String email, MultipartFile image, String note) {
         return ResponseEntity.status(201).body(representativeService.addNewRepresentative(name, jobTitle, government, address, phoneNumber, email, image, note));
     }
 
     @Override
-    public ResponseEntity<List<RepresentativeModel>> renderAllRepresentatives() {
+    public ResponseEntity<List<RepresentativeAdminModel>> renderAllRepresentatives() {
         return ResponseEntity.status(200).body(representativeService.renderAllRepresentatives());
     }
 }

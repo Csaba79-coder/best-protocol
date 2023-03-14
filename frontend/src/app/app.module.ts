@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import {ApiModule, GovernmentRepresentativeService, RepresentativeModel} from "../../build/openapi/governemnt-service";
+import {ApiModule, GovernmentRepresentativeService, RepresentativeAdminModel} from "../../build/openapi/government-service";
 import { RepresentativeListComponent } from './government-service/components/representative-list/representative-list.component';
 
 @NgModule({

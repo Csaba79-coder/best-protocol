@@ -1,7 +1,7 @@
 package com.csaba79coder.bestprotocol.util.mapper;
 
-import com.csaba79coder.bestprotocol.model.NewRepresentativeModel;
-import com.csaba79coder.bestprotocol.model.RepresentativeModel;
+import com.csaba79coder.bestprotocol.model.NewRepresentativeAdminModel;
+import com.csaba79coder.bestprotocol.model.RepresentativeAdminModel;
 import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import com.csaba79coder.bestprotocol.util.ImageUtil;
 import org.modelmapper.ModelMapper;
@@ -43,8 +43,8 @@ public class Mapper {
         return entity;
     }
 
-    public static RepresentativeModel mapRepresentativeEntityToModel(Representative entity) {
-        return new RepresentativeModel()
+    public static RepresentativeAdminModel mapRepresentativeEntityToAdminModel(Representative entity) {
+        return new RepresentativeAdminModel()
                 .id(entity.getId())
                 .createdAt(String.valueOf(entity.getCreatedAt()))
                 .updatedAt(String.valueOf(entity.getUpdatedAt()))
@@ -60,7 +60,7 @@ public class Mapper {
                 .note(entity.getNote());
     }
 
-    public static Representative mapNewRepresentativeModelToEntity(NewRepresentativeModel model) {
+    public static Representative mapNewRepresentativeAdminModelToEntity(NewRepresentativeAdminModel model) {
         Representative entity = new Representative();
         modelMapper.map(model, entity);
         return entity;

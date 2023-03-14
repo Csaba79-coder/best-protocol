@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {
   Availability,
   GovernmentRepresentativeService
-} from "../../../../../build/openapi/governemnt-service";
+} from "../../../../../build/openapi/government-service";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
 @Component({
