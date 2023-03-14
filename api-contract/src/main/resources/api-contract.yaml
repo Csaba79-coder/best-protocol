@@ -17,22 +17,21 @@ paths:
         - government-representative
       summary: Add a new Government Representative
       description: Add a new Government Representative to the database
-      operationId: RepresentativeApi.addNewRepresentative
+      operationId: addNewRepresentative
       requestBody:
         description: Create a new Representative in the database
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/NewRepresentativeModel'
+              $ref: '#/components/schemas/NewRepresentativeAdminModel'
         required: true
-
       responses:
         '201':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RepresentativeModel'
+                $ref: '#/components/schemas/RepresentativeAdminModel'
         '405':
           description: Invalid input
 
@@ -47,11 +46,11 @@ paths:
         '200':
           description: Successful operation
           content:
-            multipart/form-data:
+            application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/RepresentativeModel'
+                  $ref: '#/components/schemas/RepresentativeAdminModel'
         '400':
           description: Bad request
         '401':
@@ -65,7 +64,7 @@ paths:
 
 components:
   schemas:
-    RepresentativeModel:
+    RepresentativeAdminModel:
       type: object
       properties:
         id:
@@ -97,6 +96,10 @@ components:
           description: Name of the Representative entity
           type: string
           example: 'Vadász Csaba'
+        government:
+          description: Name of the Ministry
+          type: string
+          example: "Miniszterelnökség"
         jobTitle:
           description: Job title of the Government Representative
           type: string
@@ -124,7 +127,7 @@ components:
         availability:
           $ref: '#/components/schemas/Availability'
 
-    NewRepresentativeModel:
+    NewRepresentativeAdminModel:
       type: object
       properties:
         name:
@@ -135,6 +138,10 @@ components:
           description: Job title of the Government Representative
           type: string
           example: "Miniszterelnökséget vezető miniszter"
+        government:
+          description: Name of the Ministry
+          type: string
+          example: "Miniszterelnökség"
         address:
           description: Address of the Agency
           type: string
