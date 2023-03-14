@@ -12,7 +12,7 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 })
 export class RepresentativeListComponent implements OnInit {
 
-  representatives: SanitizedRepresentativeModel[] = [];
+  representatives: SanitizedRepresentativeAdminModel[] = [];
 
   constructor(private readonly representativeService: GovernmentRepresentativeService, private sanitizer: DomSanitizer) {}
 
@@ -32,7 +32,7 @@ export class RepresentativeListComponent implements OnInit {
   }
 }
 
-interface SanitizedRepresentativeModel {
+interface SanitizedRepresentativeAdminModel {
   id?: string;
   name?: string;
   email?: string;
