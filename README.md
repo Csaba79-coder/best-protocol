@@ -5,8 +5,8 @@
 ## Backend Dependencies
 
 - Java Development Kit - JDK 17
-- Springboot 3
-- SpringFramework 6
+- Spring Boot 3
+- Spring Framework 6
 - API contract - OPENAPI - Swagger 3
 
 ## Frontend Dependencies
