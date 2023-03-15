@@ -5,9 +5,9 @@
         <!--loop over the collection of donees-->
         <div *ngFor="let tempRepresentative of representatives" class="col-md-3">
           <div class="product-box">
-            <img [src]="tempRepresentative.image" alt="{{ tempRepresentative.name}}" class="img-responsive">
+            <img [src]="tempRepresentative.image" alt="{{ tempRepresentative.name }}" class="img-responsive">
             <h1>{{ tempRepresentative.name }}</h1>
-            <div class="description">
+            <div class="price">
               {{ tempRepresentative.jobTitle }}
             </div>
             <div class="description">
