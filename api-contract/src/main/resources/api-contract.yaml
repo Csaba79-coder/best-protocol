@@ -9,6 +9,7 @@ servers:
   - url: 'http://localhost:8080'
 tags:
   - name: government-representative
+  - name: government
 
 paths:
   /api/admin/gov-representatives:
@@ -42,6 +43,40 @@ paths:
       description: Render all Government Representatives from the database
       operationId: renderAllRepresentatives
       x-interface-name: RepresentativeApi
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RepresentativeAdminModel'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Representative not found
+        '405':
+          description: Validation exception
+
+  /api/admin/gov-representatives/search/governments/governmentId:
+    get:
+      tags:
+        - government
+      summary: Retrieve government representatives by ID
+      description: Retrieve government representatives by ID
+      operationId: renderRepresentativesByGovernmentId
+      parameters:
+        - in: query
+          name: governmentId
+          schema:
+            type: integer
+            format: int64
+          description: ID of the government to search for government representatives
       responses:
         '200':
           description: Successful operation
