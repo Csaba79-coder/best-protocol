@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -28,9 +29,9 @@ public class Government {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "government")
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "government", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Representative> representatives;
+    private Set<Representative> representatives = new HashSet<>();
 }

@@ -14,12 +14,14 @@ import java.io.IOException;
 public class Mapper {
 
     private static final ModelMapper modelMapper = new ModelMapper();
+    // private static RepresentativeService representativeService;
 
     public static Representative mapFieldIntoEntity(String name, String jobTitle, String government, String address, String phoneNumber, String email, MultipartFile image, String note) {
         Representative entity = new Representative();
         entity.setName(name);
         entity.setJobTitle(jobTitle);
-        entity.setGovernment(government);
+        // TODO check it! 
+        // entity.setGovernment(representativeService.findGovernmentByName(government));
         entity.setAddress(address);
         entity.setPhoneNumber(phoneNumber);
         entity.setEmail(email);
@@ -52,7 +54,7 @@ public class Mapper {
                 .updatedBy(entity.getUpdatedBy())
                 .name(entity.getName())
                 .jobTitle(entity.getJobTitle())
-                .government(entity.getGovernment())
+                .government(entity.getGovernment().getName())
                 .address(entity.getAddress())
                 .phoneNumber(entity.getPhoneNumber())
                 .email(entity.getEmail())
