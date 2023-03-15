@@ -6,7 +6,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +29,9 @@ public class Representative extends Auditable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "government")
-    private String government;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "government_id")
+    private Government government;
 
     @Column(name = "job_title")
     private String jobTitle;
