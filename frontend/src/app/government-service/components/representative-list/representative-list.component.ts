@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import {ActivatedRoute, RouterModule} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
   Availability, GovernmentAdminModel,
@@ -22,7 +22,8 @@ export class RepresentativeListComponent implements OnInit {
     private readonly representativeService: GovernmentRepresentativeService,
     private readonly governmentService: GovernmentService,
     private sanitizer: DomSanitizer,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -79,6 +80,10 @@ export class RepresentativeListComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  isActive(url: string): boolean {
+    return this.router.isActive(url, true);
   }
 }
 

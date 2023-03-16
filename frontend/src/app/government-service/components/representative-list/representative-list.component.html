@@ -7,9 +7,18 @@
   <div class="menu-sidebar-content js-scrollbar1">
     <nav class="navbar-sidebar">
       <ul class="list-unstyled navbar-list">
-        <a routerLink="/api/admin/gov-representatives" routerLinkActive="active-link">Összes</a>
+        <li>
+          <a routerLink="/api/admin/gov-representatives"
+             routerLinkActive="active-link"
+             [routerLinkActiveOptions]="{exact: true}"
+             [class.active]="isActive('/api/admin/gov-representatives')">
+            Összes
+          </a>
+        </li>
         <li *ngFor="let government of governments">
-          <a routerLink="/api/admin/gov-representatives/government/{{ government.id }}" routerLinkActive="active-link">
+          <a routerLink="/api/admin/gov-representatives/government/{{ government.id }}"
+             routerLinkActive="active-link"
+             [class.active]="isActive('/api/admin/gov-representatives/government/' + government.id)">
             {{ government.name }}
           </a>
         </li>
