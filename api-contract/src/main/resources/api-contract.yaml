@@ -64,8 +64,6 @@ paths:
           description: Validation exception
 
   /api/admin/gov-representatives/government/{governmentId}:
-  #/api/admin/gov-representatives/findByGovernmentId?governmentId={governmentId}:
-  #/api/admin/gov-representatives/government/findByGovernmentId?governmentId={governmentId}:
     get:
       tags:
         - government-representative
