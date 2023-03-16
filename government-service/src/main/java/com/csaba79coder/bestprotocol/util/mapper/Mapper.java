@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class Mapper {
 
+    // TODO adding secretairat field
+
     private static final ModelMapper modelMapper = new ModelMapper();
     // private static RepresentativeService representativeService;
 
