@@ -1,7 +1,10 @@
 package com.csaba79coder.bestprotocol.util.mapper;
 
+import com.csaba79coder.bestprotocol.model.Availability;
+import com.csaba79coder.bestprotocol.model.GovernmentAdminModel;
 import com.csaba79coder.bestprotocol.model.NewRepresentativeAdminModel;
 import com.csaba79coder.bestprotocol.model.RepresentativeAdminModel;
+import com.csaba79coder.bestprotocol.model.representative.entity.Government;
 import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import com.csaba79coder.bestprotocol.util.ImageUtil;
 import org.modelmapper.ModelMapper;
@@ -54,17 +57,24 @@ public class Mapper {
                 .updatedBy(entity.getUpdatedBy())
                 .name(entity.getName())
                 .jobTitle(entity.getJobTitle())
-                .government(entity.getGovernment().getName())
+                .government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
                 .address(entity.getAddress())
                 .phoneNumber(entity.getPhoneNumber())
                 .email(entity.getEmail())
                 .image(ImageUtil.decompressImage(entity.getImage()))
-                .note(entity.getNote());
+                .note(entity.getNote())
+                .availability(Availability.valueOf(entity.getAvailability().name()));
     }
 
     public static Representative mapNewRepresentativeAdminModelToEntity(NewRepresentativeAdminModel model) {
         Representative entity = new Representative();
         modelMapper.map(model, entity);
         return entity;
+    }
+
+    public static GovernmentAdminModel mapGovernmentEntityToAdminModel(Government entity) {
+        GovernmentAdminModel model = new GovernmentAdminModel();
+        modelMapper.map(entity, model);
+        return model;
     }
 }

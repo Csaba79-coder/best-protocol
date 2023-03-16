@@ -63,20 +63,42 @@ paths:
         '405':
           description: Validation exception
 
-  /api/admin/gov-representatives/search/governments/governmentId:
+  /api/admin/gov-representatives/government/{governmentId}:
+  #/api/admin/gov-representatives/findByGovernmentId?governmentId={governmentId}:
+  #/api/admin/gov-representatives/government/findByGovernmentId?governmentId={governmentId}:
     get:
       tags:
-        - government
-      summary: Retrieve government representatives by ID
-      description: Retrieve government representatives by ID
-      operationId: renderRepresentativesByGovernmentId
+        - government-representative
+      summary: Render Government Representatives by Government ID
+      description: Render all Government Representatives from the database by Government ID
+      operationId: findByGovernmentId
+      x-interface-name: RepresentativeApi
       parameters:
-        - in: query
-          name: governmentId
+        - name: governmentId
+          in: path
+          description: ID of the government to filter by
+          required: true
           schema:
             type: integer
             format: int64
-          description: ID of the government to search for government representatives
+            minimum: 1
+        - name: page
+          in: query
+          description: The page number to retrieve
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: size
+          in: query
+          description: The page size to retrieve
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
       responses:
         '200':
           description: Successful operation
@@ -96,6 +118,31 @@ paths:
           description: Representative not found
         '405':
           description: Validation exception
+  /api/admin/gov-representatives/government:
+    get:
+      tags:
+        - government
+      summary: Get government data
+      operationId: renderAllGovernments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GovernmentAdminModel'
+          headers:
+            Cache-Control:
+              description: Cache control header
+              schema:
+                type: string
+            Expires:
+              description: Expiration date header
+              schema:
+                type: string
+
 
 components:
   schemas:
@@ -132,9 +179,10 @@ components:
           type: string
           example: 'Vadász Csaba'
         government:
-          description: Name of the Ministry
-          type: string
-          example: "Miniszterelnökség"
+          #description: Name of the Ministry
+          #type: string
+          #example: "Miniszterelnökség"
+          $ref: '#/components/schemas/GovernmentAdminModel'
         jobTitle:
           description: Job title of the Government Representative
           type: string
@@ -197,6 +245,15 @@ components:
           description: Any extra, useful information
           type: string
           example: 'ételérzékenység: nincs, egyéb infó: vegán'
+
+    GovernmentAdminModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
 
     Availability:
       type: string

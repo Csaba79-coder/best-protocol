@@ -27,4 +27,9 @@ public class RepresentativeController implements GovernmentRepresentativeApi {
     public ResponseEntity<List<RepresentativeAdminModel>> renderAllRepresentatives() {
         return ResponseEntity.status(200).body(representativeService.renderAllRepresentatives());
     }
+
+    @Override
+    public ResponseEntity<List<RepresentativeAdminModel>> findByGovernmentId(Long governmentId, Integer page, Integer size) {
+        return ResponseEntity.status(200).body(representativeService.renderAllRepresentativesByGovernmentId(governmentId));
+    }
 }

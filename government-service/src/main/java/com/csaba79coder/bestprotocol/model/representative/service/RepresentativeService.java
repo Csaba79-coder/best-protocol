@@ -33,6 +33,12 @@ public class RepresentativeService {
                 .collect(Collectors.toList());
     }
 
+    /*public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(Long governmentId, Integer page, Integer size) {
+        return representativeRepository.findByGovernmentId(governmentId, PageRequest.of(page, size))
+                .stream().toList();
+    }*/
+
+
     public Government findGovernmentByName(String government) {
         return governmentRepository.findGovernmentByNameContainsIgnoreCase(government)
                 .orElseThrow(() -> {
@@ -40,5 +46,12 @@ public class RepresentativeService {
                     log.info(message);
                     return new NoSuchElementException(message);
                 });
+    }
+
+    public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(Long governmentId) {
+        return representativeRepository.findRepresentativeByGovernmentId(governmentId)
+                .stream()
+                .map(Mapper::mapRepresentativeEntityToAdminModel)
+                .collect(Collectors.toList());
     }
 }

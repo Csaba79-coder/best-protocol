@@ -1,49 +1,9 @@
 <div class="page-wrapper">
 
   <!-- MENU SIDEBAR-->
-  <aside class="menu-sidebar d-none d-lg-block">
-    <div class="logo">
-      <a href="#">
-        <img src="assets/images/bp-logo.png" alt="bp" class="img-responsive">
-      </a>
-    </div>
-    <div class="menu-sidebar-content js-scrollbar1">
-      <nav class="navbar-sidebar">
-        <ul class="list-unstyled navbar-list">
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Agrárminisztérium</a>
-          </li>
-          <li>
-            <a routerLink="/category/2" routerLinkActive="active-link">Belügyminisztérium</a>
-          </li>
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Emberi Erőforrások Minisztériuma</a>
-          </li>
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Honvédelmi Minisztérium</a>
-          </li>
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Igazságügyi Minisztérium</a>
-          </li>
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Innovációs és Technológiai Minisztérium</a>
-          </li>
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Külgazdasági és Külügyminisztérium</a>
-          </li>
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Miniszterelnöki Kabinetiroda</a>
-          </li>
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Miniszterelnökség</a>
-          </li>
-          <li>
-            <a routerLink="/category/1" routerLinkActive="active-link">Pénzügyminisztérium</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </aside>
+  <!--<app-government-list></app-government-list>-->
+  <router-outlet></router-outlet>
+
   <!-- END MENU SIDEBAR-->
 
   <!-- PAGE CONTAINER-->
@@ -74,7 +34,8 @@
     <!-- END HEADER DESKTOP-->
 
     <!-- MAIN CONTENT adding reference to our product list component!-->
-    <app-representative-list></app-representative-list>
+    <router-outlet></router-outlet>
+    <!--<app-representative-list></app-representative-list>-->
 
   </div>
 </div>

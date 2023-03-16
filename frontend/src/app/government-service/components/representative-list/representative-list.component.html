@@ -1,3 +1,21 @@
+<aside class="menu-sidebar d-none d-lg-block">
+  <div class="logo">
+    <a href="#">
+      <img src="assets/images/bp-logo.png" alt="bp" class="img-responsive">
+    </a>
+  </div>
+  <div class="menu-sidebar-content js-scrollbar1">
+    <nav class="navbar-sidebar">
+      <ul class="list-unstyled navbar-list">
+        <a routerLink="/api/admin/gov-representatives" routerLinkActive="active">Összes</a>
+        <li *ngFor="let government of governments">
+          <a (click)="goToGovernment(government?.id?.toString() ?? '')" routerLinkActive="active">{{ government?.name }}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
+
 <div class="main-content">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
@@ -11,7 +29,7 @@
               {{ tempRepresentative.jobTitle }}
             </div>
             <div class="description">
-              {{ tempRepresentative.government }}
+              {{ tempRepresentative.governmentName }}
             </div>
             <div class="description">
               {{ tempRepresentative.email }}
