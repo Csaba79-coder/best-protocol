@@ -12,17 +12,17 @@ import {
   templateUrl: './representative-list.component.html',
   styleUrls: ['./representative-list.component.css'],
 })
+
 export class RepresentativeListComponent implements OnInit {
   representatives: SanitizedRepresentativeAdminModel[] = [];
   governments: GovernmentAdminModel[] = [];
   currentGovernmentId?: number;
 
   constructor(
-      private readonly representativeService: GovernmentRepresentativeService,
-      private readonly governmentService: GovernmentService,
-      private sanitizer: DomSanitizer,
-      private route: ActivatedRoute
-      // private readonly router: Router
+    private readonly representativeService: GovernmentRepresentativeService,
+    private readonly governmentService: GovernmentService,
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -31,12 +31,14 @@ export class RepresentativeListComponent implements OnInit {
   }
 
   private listRepresentatives() {
-    const governmentId = this.route.snapshot.params['governmentId'];
-    if (governmentId) {
-      this.listRepresentativesByGovId();
-    } else {
-      this.listAllRepresentatives();
-    }
+    this.route.params.subscribe(params => {
+      const governmentId = params['governmentId'];
+      if (governmentId) {
+        this.listRepresentativesByGovId(governmentId);
+      } else {
+        this.listAllRepresentatives();
+      }
+    });
   }
 
   private listAllRepresentatives() {
@@ -52,9 +54,8 @@ export class RepresentativeListComponent implements OnInit {
     });
   }
 
-  private listRepresentativesByGovId() {
-    const governmentId = this.route.snapshot.params['governmentId'];
-    this.currentGovernmentId = +governmentId!;
+  private listRepresentativesByGovId(governmentId: number) {
+    this.currentGovernmentId = governmentId;
     this.representativeService
       .findByGovernmentId(this.currentGovernmentId)
       .subscribe((data) => {
@@ -68,23 +69,6 @@ export class RepresentativeListComponent implements OnInit {
         });
       });
   }
-
-  /*private listRepresentativesByGovId() {
-    const governmentId = this.route.snapshot.queryParamMap.get('governmentId');
-    this.currentGovernmentId = +governmentId!;
-    this.representativeService
-      .findByGovernmentId(this.currentGovernmentId)
-      .subscribe((data) => {
-        this.representatives = data.map((representative) => {
-          const government = representative.government;
-          return {
-            ...representative,
-            government: government ? government.name : '',
-            image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
-          };
-        });
-      });
-  }*/
 
   private governmentList() {
     this.governmentService.renderAllGovernments().subscribe(
