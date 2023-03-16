@@ -13,7 +13,7 @@ const routes: Routes = [
     {path: 'api/admin/gov-representatives/government/:governmentId', component: RepresentativeListComponent },
     {path: 'api/admin/gov-representatives/government', component: RepresentativeListComponent },
     {path: 'api/admin/gov-representatives', component: RepresentativeListComponent },
-    {path: 'api/admin/governments', component: GovernmentListComponent},
+    // {path: 'api/admin/governments', component: GovernmentListComponent},
     {path: '', redirectTo: '/api/admin/gov-representatives', pathMatch: 'full' },
     {path: '**', redirectTo: '/api/admin/gov-representatives', pathMatch: 'full' }
 ];
@@ -30,6 +30,7 @@ const routes: Routes = [
         HttpClientModule,
         ApiModule,
     ],
+    exports: [RouterModule],
     providers: [GovernmentRepresentativeService],
     bootstrap: [AppComponent]
 })

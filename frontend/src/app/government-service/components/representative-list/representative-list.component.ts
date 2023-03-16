@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, RouterModule} from '@angular/router';
+
 import {
   Availability, GovernmentAdminModel,
   GovernmentRepresentativeService, GovernmentService
@@ -14,14 +15,14 @@ import {
 export class RepresentativeListComponent implements OnInit {
   representatives: SanitizedRepresentativeAdminModel[] = [];
   governments: GovernmentAdminModel[] = [];
-  public currentGovernmentId?: number;
+  currentGovernmentId?: number;
 
   constructor(
       private readonly representativeService: GovernmentRepresentativeService,
       private readonly governmentService: GovernmentService,
       private sanitizer: DomSanitizer,
-      private route: ActivatedRoute,
-      private readonly router: Router
+      private route: ActivatedRoute
+      // private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +53,7 @@ export class RepresentativeListComponent implements OnInit {
   }
 
   private listRepresentativesByGovId() {
-    const governmentId = this.route.snapshot.queryParamMap.get('governmentId');
+    const governmentId = this.route.snapshot.params['governmentId'];
     this.currentGovernmentId = +governmentId!;
     this.representativeService
       .findByGovernmentId(this.currentGovernmentId)
@@ -68,6 +69,23 @@ export class RepresentativeListComponent implements OnInit {
       });
   }
 
+  /*private listRepresentativesByGovId() {
+    const governmentId = this.route.snapshot.queryParamMap.get('governmentId');
+    this.currentGovernmentId = +governmentId!;
+    this.representativeService
+      .findByGovernmentId(this.currentGovernmentId)
+      .subscribe((data) => {
+        this.representatives = data.map((representative) => {
+          const government = representative.government;
+          return {
+            ...representative,
+            government: government ? government.name : '',
+            image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
+          };
+        });
+      });
+  }*/
+
   private governmentList() {
     this.governmentService.renderAllGovernments().subscribe(
       (response) => {
@@ -77,10 +95,6 @@ export class RepresentativeListComponent implements OnInit {
         console.error(error);
       }
     );
-  }
-
-  goToGovernment(governmentId: string) {
-    this.router.navigate(['/api/admin/gov-representatives', governmentId]);
   }
 }
 
