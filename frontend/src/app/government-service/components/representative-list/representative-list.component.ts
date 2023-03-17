@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  PRIMARY_OUTLET,
+  Router,
+  UrlSegment,
+  UrlSegmentGroup,
+  UrlTree
+} from '@angular/router';
 
 import {
   Availability, GovernmentAdminModel,
   GovernmentRepresentativeService, GovernmentService
 } from '../../../../../build/openapi/government-service';
+import {Observable, Subject} from "rxjs";
 
 @Component({
   selector: 'app-representative-list',
@@ -15,8 +23,10 @@ import {
 
 export class RepresentativeListComponent implements OnInit {
   representatives: SanitizedRepresentativeAdminModel[] = [];
-  governments: GovernmentAdminModel[] = [];
+  private governmentsSubject = new Subject<any>();
+  governments$: Observable<GovernmentAdminModel[]> = this.governmentService.renderAllGovernments();
   currentGovernmentId?: number;
+
 
   constructor(
     private readonly representativeService: GovernmentRepresentativeService,
@@ -64,7 +74,7 @@ export class RepresentativeListComponent implements OnInit {
           const government = representative.government;
           return {
             ...representative,
-            government: government ? government.name : '',
+            governmentName: government ? government.name : '',
             image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
           };
         });
@@ -74,7 +84,7 @@ export class RepresentativeListComponent implements OnInit {
   private governmentList() {
     this.governmentService.renderAllGovernments().subscribe(
       (response) => {
-        this.governments = response;
+        this.governmentsSubject.next(response);
       },
       (error) => {
         console.error(error);
@@ -83,7 +93,21 @@ export class RepresentativeListComponent implements OnInit {
   }
 
   isActive(url: string): boolean {
-    return this.router.isActive(url, true);
+    const currentUrlTree: UrlTree = this.router.parseUrl(this.router.url);
+    const targetUrlTree: UrlTree = this.router.createUrlTree([url]);
+    const currentUrlSegmentGroup: UrlSegmentGroup = currentUrlTree.root.children[PRIMARY_OUTLET];
+    const targetUrlSegmentGroup: UrlSegmentGroup = targetUrlTree.root.children[PRIMARY_OUTLET];
+    const currentSegments: UrlSegment[] = currentUrlSegmentGroup.segments;
+    const targetSegments: UrlSegment[] = targetUrlSegmentGroup.segments;
+    const length: number = Math.min(currentSegments.length, targetSegments.length);
+
+    for (let i = 0; i < length; i++) {
+      if (currentSegments[i].path !== targetSegments[i].path) {
+        return false;
+      }
+    }
+
+    return targetSegments.length <= currentSegments.length;
   }
 }
 
@@ -98,6 +122,7 @@ interface SanitizedRepresentativeAdminModel {
   note?: string;
   availability?: Availability;
   governmentName?: string;
+  secretairat?: string;
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;

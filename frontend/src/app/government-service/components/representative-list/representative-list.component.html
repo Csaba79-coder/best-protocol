@@ -15,13 +15,15 @@
             Összes
           </a>
         </li>
-        <li *ngFor="let government of governments">
-          <a routerLink="/api/admin/gov-representatives/government/{{ government.id }}"
-             routerLinkActive="active-link"
-             [class.active]="isActive('/api/admin/gov-representatives/government/' + government.id)">
-            {{ government.name }}
-          </a>
-        </li>
+        <ng-container *ngIf="(governments$ | async) as governments">
+          <li *ngFor="let government of governments">
+            <a routerLink="/api/admin/gov-representatives/government/{{ government.id }}"
+               routerLinkActive="active-link"
+               [class.active]="isActive('/api/admin/gov-representatives/government/' + government.id)">
+              {{ government.name }}
+            </a>
+          </li>
+        </ng-container>
       </ul>
     </nav>
   </div>
@@ -41,6 +43,9 @@
             </div>
             <div class="description">
               {{ tempRepresentative.governmentName }}
+            </div>
+            <div class="description">
+              {{ tempRepresentative.secretairat }}
             </div>
             <div class="description">
               {{ tempRepresentative.email }}
