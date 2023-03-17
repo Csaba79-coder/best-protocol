@@ -181,6 +181,10 @@ components:
           #type: string
           #example: "Miniszterelnökség"
           $ref: '#/components/schemas/GovernmentAdminModel'
+        secretairat:
+          description: Name of the Secretairat
+          type: string
+          example: "Közigzagatási államtitkár"
         jobTitle:
           description: Job title of the Government Representative
           type: string
@@ -215,14 +219,18 @@ components:
           description: Name of the Representative entity
           type: string
           example: 'Vadász Csaba'
-        jobTitle:
-          description: Job title of the Government Representative
-          type: string
-          example: "Miniszterelnökséget vezető miniszter"
         government:
           description: Name of the Ministry
           type: string
           example: "Miniszterelnökség"
+        secretairat:
+          description: Name of the Secretairat
+          type: string
+          example: "Közigzagatási államtitkár"
+        jobTitle:
+          description: Job title of the Government Representative
+          type: string
+          example: "Miniszterelnökséget vezető miniszter"
         address:
           description: Address of the Agency
           type: string
