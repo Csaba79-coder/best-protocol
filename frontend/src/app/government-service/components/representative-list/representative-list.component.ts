@@ -23,7 +23,6 @@ import {Observable, Subject} from "rxjs";
 
 export class RepresentativeListComponent implements OnInit {
   representatives: SanitizedRepresentativeAdminModel[] = [];
-  private governmentsSubject = new Subject<any>();
   governments$: Observable<GovernmentAdminModel[]> = this.governmentService.renderAllGovernments();
   currentGovernmentId?: number;
 
@@ -37,7 +36,7 @@ export class RepresentativeListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.governmentList();
+    // this.governmentList();
     this.listRepresentatives();
   }
 
@@ -81,18 +80,6 @@ export class RepresentativeListComponent implements OnInit {
           };
         });
       });
-  }
-
-  private governmentList() {
-    this.governmentService.renderAllGovernments().subscribe(
-      (response) => {
-        console.log("Representatives: " + JSON.stringify(response));
-        this.governmentsSubject.next(response);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
   }
 
   isActive(url: string): boolean {
