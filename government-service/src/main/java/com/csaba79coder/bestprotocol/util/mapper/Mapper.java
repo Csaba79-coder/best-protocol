@@ -4,7 +4,7 @@ import com.csaba79coder.bestprotocol.model.Availability;
 import com.csaba79coder.bestprotocol.model.GovernmentAdminModel;
 import com.csaba79coder.bestprotocol.model.NewRepresentativeAdminModel;
 import com.csaba79coder.bestprotocol.model.RepresentativeAdminModel;
-import com.csaba79coder.bestprotocol.model.representative.entity.Government;
+import com.csaba79coder.bestprotocol.model.government.entity.Government;
 import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import com.csaba79coder.bestprotocol.util.ImageUtil;
 import org.modelmapper.ModelMapper;

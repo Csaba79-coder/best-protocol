@@ -1,7 +1,7 @@
-package com.csaba79coder.bestprotocol.model.representative.service;
+package com.csaba79coder.bestprotocol.model.government.service;
 
 import com.csaba79coder.bestprotocol.model.GovernmentAdminModel;
-import com.csaba79coder.bestprotocol.model.representative.persistence.GovernmentRepository;
+import com.csaba79coder.bestprotocol.model.government.persistence.GovernmentRepository;
 import com.csaba79coder.bestprotocol.util.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

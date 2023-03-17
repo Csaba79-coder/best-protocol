@@ -2,7 +2,7 @@ package com.csaba79coder.bestprotocol.controller;
 
 import com.csaba79coder.bestprotocol.api.GovernmentApi;
 import com.csaba79coder.bestprotocol.model.GovernmentAdminModel;
-import com.csaba79coder.bestprotocol.model.representative.service.GovernmentService;
+import com.csaba79coder.bestprotocol.model.government.service.GovernmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

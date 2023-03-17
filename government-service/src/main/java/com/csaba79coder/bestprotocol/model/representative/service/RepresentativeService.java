@@ -1,8 +1,8 @@
 package com.csaba79coder.bestprotocol.model.representative.service;
 
 import com.csaba79coder.bestprotocol.model.RepresentativeAdminModel;
-import com.csaba79coder.bestprotocol.model.representative.entity.Government;
-import com.csaba79coder.bestprotocol.model.representative.persistence.GovernmentRepository;
+import com.csaba79coder.bestprotocol.model.government.entity.Government;
+import com.csaba79coder.bestprotocol.model.government.persistence.GovernmentRepository;
 import com.csaba79coder.bestprotocol.model.representative.persistence.RepresentativeRepository;
 import com.csaba79coder.bestprotocol.util.mapper.Mapper;
 import lombok.RequiredArgsConstructor;

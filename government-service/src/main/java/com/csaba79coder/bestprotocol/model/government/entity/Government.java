@@ -1,11 +1,10 @@
-package com.csaba79coder.bestprotocol.model.representative.entity;
+package com.csaba79coder.bestprotocol.model.government.entity;
 
+import com.csaba79coder.bestprotocol.model.base.entity.IdentifierLong;
+import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
@@ -23,12 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "government")
-public class Government {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class Government extends IdentifierLong {
 
     @Column(name = "name")
     @OrderBy

@@ -1,6 +1,7 @@
 package com.csaba79coder.bestprotocol.model.representative.entity;
 
 import com.csaba79coder.bestprotocol.model.base.entity.Auditable;
+import com.csaba79coder.bestprotocol.model.government.entity.Government;
 import com.csaba79coder.bestprotocol.model.value.Availability;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
