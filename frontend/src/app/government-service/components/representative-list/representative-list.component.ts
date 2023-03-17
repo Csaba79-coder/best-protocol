@@ -55,6 +55,7 @@ export class RepresentativeListComponent implements OnInit {
   private listAllRepresentatives() {
     this.representativeService.renderAllRepresentatives().subscribe((data) => {
       this.representatives = data.map((representative) => {
+        console.log("Representatives: " + JSON.stringify(representative));
         const government = representative.government;
         return {
           ...representative,
@@ -71,6 +72,7 @@ export class RepresentativeListComponent implements OnInit {
       .findByGovernmentId(this.currentGovernmentId)
       .subscribe((data) => {
         this.representatives = data.map((representative) => {
+          console.log("Representatives: " + JSON.stringify(representative));
           const government = representative.government;
           return {
             ...representative,
@@ -84,6 +86,7 @@ export class RepresentativeListComponent implements OnInit {
   private governmentList() {
     this.governmentService.renderAllGovernments().subscribe(
       (response) => {
+        console.log("Representatives: " + JSON.stringify(response));
         this.governmentsSubject.next(response);
       },
       (error) => {
