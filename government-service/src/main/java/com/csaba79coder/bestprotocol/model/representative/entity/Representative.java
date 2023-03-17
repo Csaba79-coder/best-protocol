@@ -33,6 +33,9 @@ public class Representative extends Auditable {
     @JoinColumn(name = "government_id")
     private Government government;
 
+    @Column(name = "secretairat")
+    private String secretairat;
+
     @Column(name = "job_title")
     private String jobTitle;
 

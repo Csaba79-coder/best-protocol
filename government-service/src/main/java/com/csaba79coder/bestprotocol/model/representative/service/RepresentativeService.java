@@ -22,8 +22,8 @@ public class RepresentativeService {
     private final RepresentativeRepository representativeRepository;
     private final GovernmentRepository governmentRepository;
 
-    public RepresentativeAdminModel addNewRepresentative(String name, String jobTitle, String government, String address, String phoneNumber, String email, MultipartFile image, String note) {
-        return Mapper.mapRepresentativeEntityToAdminModel(representativeRepository.save(Mapper.mapFieldIntoEntity(name, jobTitle, government, address, phoneNumber, email, image, note)));
+    public RepresentativeAdminModel addNewRepresentative(String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
+        return Mapper.mapRepresentativeEntityToAdminModel(representativeRepository.save(Mapper.mapFieldIntoEntity(name, jobTitle, government, secretairat, address, phoneNumber, email, image, note)));
     }
 
     public List<RepresentativeAdminModel> renderAllRepresentatives() {
@@ -32,12 +32,6 @@ public class RepresentativeService {
                 .map(Mapper::mapRepresentativeEntityToAdminModel)
                 .collect(Collectors.toList());
     }
-
-    /*public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(Long governmentId, Integer page, Integer size) {
-        return representativeRepository.findByGovernmentId(governmentId, PageRequest.of(page, size))
-                .stream().toList();
-    }*/
-
 
     public Government findGovernmentByName(String government) {
         return governmentRepository.findGovernmentByNameContainsIgnoreCase(government)

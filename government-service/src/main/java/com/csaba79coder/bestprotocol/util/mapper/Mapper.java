@@ -21,12 +21,13 @@ public class Mapper {
     private static final ModelMapper modelMapper = new ModelMapper();
     // private static RepresentativeService representativeService;
 
-    public static Representative mapFieldIntoEntity(String name, String jobTitle, String government, String address, String phoneNumber, String email, MultipartFile image, String note) {
+    public static Representative mapFieldIntoEntity(String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
         Representative entity = new Representative();
         entity.setName(name);
         entity.setJobTitle(jobTitle);
         // TODO check it! 
         // entity.setGovernment(representativeService.findGovernmentByName(government));
+        entity.setSecretairat(secretairat);
         entity.setAddress(address);
         entity.setPhoneNumber(phoneNumber);
         entity.setEmail(email);
@@ -60,6 +61,7 @@ public class Mapper {
                 .name(entity.getName())
                 .jobTitle(entity.getJobTitle())
                 .government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
+                .secretairat(entity.getSecretairat())
                 .address(entity.getAddress())
                 .phoneNumber(entity.getPhoneNumber())
                 .email(entity.getEmail())
