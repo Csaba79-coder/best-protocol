@@ -28,7 +28,7 @@ const routes: Routes = [
         RouterModule.forRoot(routes),
         BrowserModule,
         HttpClientModule,
-        ApiModule,
+        ApiModule
     ],
     exports: [RouterModule],
     providers: [GovernmentRepresentativeService],
