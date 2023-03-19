@@ -7,15 +7,15 @@ import { ApiModule, GovernmentRepresentativeService } from "../../build/openapi/
 import { RepresentativeListComponent } from './government-service/components/representative-list/representative-list.component';
 import {RouterModule, Routes} from "@angular/router";
 import { GovernmentListComponent } from "./government-service/components/government-list/government-list/government-list.component";
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
-    // first match wins top down!
-    {path: 'api/admin/gov-representatives/government/:governmentId', component: RepresentativeListComponent },
-    {path: 'api/admin/gov-representatives/government', component: RepresentativeListComponent },
-    {path: 'api/admin/gov-representatives', component: RepresentativeListComponent },
-    {path: 'api/admin/governments', component: GovernmentListComponent},
-    {path: '', redirectTo: '/api/admin/gov-representatives', pathMatch: 'full' },
-    {path: '**', redirectTo: '/api/admin/gov-representatives', pathMatch: 'full' }
+  {path: ':languageShortName/api/admin/gov-representatives', component: RepresentativeListComponent },
+  {path: ':languageShortName/api/admin/gov-representatives/government', component: RepresentativeListComponent },
+  {path: ':languageShortName/api/admin/gov-representatives/government/:governmentId', component: RepresentativeListComponent },
+  {path: 'api/admin/governments', component: GovernmentListComponent},
+  {path: '', redirectTo: '/hu/api/admin/gov-representatives', pathMatch: 'full' },
+  {path: '**', redirectTo: '/hu/api/admin/gov-representatives', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -24,12 +24,13 @@ const routes: Routes = [
         RepresentativeListComponent,
         GovernmentListComponent
     ],
-    imports: [
-        RouterModule.forRoot(routes),
-        BrowserModule,
-        HttpClientModule,
-        ApiModule
-    ],
+  imports: [
+    RouterModule.forRoot(routes),
+    BrowserModule,
+    HttpClientModule,
+    ApiModule,
+    FormsModule
+  ],
     exports: [RouterModule],
     providers: [GovernmentRepresentativeService],
     bootstrap: [AppComponent]

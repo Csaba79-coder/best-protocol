@@ -19,17 +19,17 @@ public class RepresentativeController implements GovernmentRepresentativeApi {
     private final RepresentativeService representativeService;
 
     @Override
-    public ResponseEntity<List<RepresentativeAdminModel>> renderAllRepresentatives() {
-        return ResponseEntity.status(200).body(representativeService.renderAllRepresentatives());
+    public ResponseEntity<RepresentativeAdminModel> addNewRepresentative(String languageShortName, String name, String government, String secretairat, String jobTitle, String address, String phoneNumber, String email, MultipartFile image, String note) {
+        return ResponseEntity.status(201).body(representativeService.addNewRepresentative(languageShortName, name, government, secretairat, jobTitle, address, phoneNumber, email, image, note));
     }
 
     @Override
-    public ResponseEntity<RepresentativeAdminModel> addNewRepresentative(String name, String government, String secretairat, String jobTitle, String address, String phoneNumber, String email, MultipartFile image, String note) {
-        return ResponseEntity.status(201).body(representativeService.addNewRepresentative(name, government, secretairat, jobTitle, address, phoneNumber, email, image, note));
+    public ResponseEntity<List<RepresentativeAdminModel>> findByGovernmentId(Long governmentId, String languageShortName, Integer page, Integer size) {
+        return ResponseEntity.status(200).body(representativeService.renderAllRepresentativesByGovernmentId(languageShortName, governmentId));
     }
 
     @Override
-    public ResponseEntity<List<RepresentativeAdminModel>> findByGovernmentId(Long governmentId, Integer page, Integer size) {
-        return ResponseEntity.status(200).body(representativeService.renderAllRepresentativesByGovernmentId(governmentId));
+    public ResponseEntity<List<RepresentativeAdminModel>> renderAllRepresentatives(String languageShortName) {
+        return ResponseEntity.status(200).body(representativeService.renderAllRepresentatives(languageShortName));
     }
 }

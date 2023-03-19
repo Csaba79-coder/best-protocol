@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import {
-  ActivatedRoute,
-  PRIMARY_OUTLET,
-  Router,
-  UrlSegment,
-  UrlSegmentGroup,
-  UrlTree
+  ActivatedRoute
 } from '@angular/router';
 
 import {
@@ -23,20 +18,18 @@ import {Observable, Subject} from "rxjs";
 
 export class RepresentativeListComponent implements OnInit {
   representatives: SanitizedRepresentativeAdminModel[] = [];
+  currentLanguage?: string = 'hu';
   governments$: Observable<GovernmentAdminModel[]> = this.governmentService.renderAllGovernments();
   currentGovernmentId?: number;
-
 
   constructor(
     private readonly representativeService: GovernmentRepresentativeService,
     private readonly governmentService: GovernmentService,
     private sanitizer: DomSanitizer,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    // this.governmentList();
     this.listRepresentatives();
   }
 
@@ -44,7 +37,8 @@ export class RepresentativeListComponent implements OnInit {
     this.route.params.subscribe(params => {
       const governmentId = params['governmentId'];
       if (governmentId) {
-        this.listRepresentativesByGovId(governmentId);
+        this.currentGovernmentId = governmentId;
+        this.listRepresentativesByGovId(this.currentLanguage!, this.currentGovernmentId!);
       } else {
         this.listAllRepresentatives();
       }
@@ -52,7 +46,7 @@ export class RepresentativeListComponent implements OnInit {
   }
 
   private listAllRepresentatives() {
-    this.representativeService.renderAllRepresentatives().subscribe((data) => {
+    this.representativeService.renderAllRepresentatives(this.currentLanguage!).subscribe((data) => {
       this.representatives = data.map((representative) => {
         console.log("Representatives: " + JSON.stringify(representative));
         const government = representative.government;
@@ -64,11 +58,25 @@ export class RepresentativeListComponent implements OnInit {
       });
     });
   }
+  /*private listAllRepresentatives() {
+    this.representativeService.renderAllRepresentatives(this.currentLanguage!).subscribe((data) => {
+      this.representatives = data.map((representative) => {
+        console.log("Representatives: " + JSON.stringify(representative));
+        const government = representative.government;
+        return {
+          ...representative,
+          governmentName: government ? government.name : '',
+          image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
+        };
+      });
+    });
+  }*/
 
-  private listRepresentativesByGovId(governmentId: number) {
+  private listRepresentativesByGovId(currentLanguage: string, governmentId: number) {
     this.currentGovernmentId = governmentId;
+    this.currentLanguage = currentLanguage;
     this.representativeService
-      .findByGovernmentId(this.currentGovernmentId)
+      .findByGovernmentId(this.currentGovernmentId, this.currentLanguage)
       .subscribe((data) => {
         this.representatives = data.map((representative) => {
           console.log("Representatives: " + JSON.stringify(representative));
@@ -81,29 +89,12 @@ export class RepresentativeListComponent implements OnInit {
         });
       });
   }
-
-  isActive(url: string): boolean {
-    const currentUrlTree: UrlTree = this.router.parseUrl(this.router.url);
-    const targetUrlTree: UrlTree = this.router.createUrlTree([url]);
-    const currentUrlSegmentGroup: UrlSegmentGroup = currentUrlTree.root.children[PRIMARY_OUTLET];
-    const targetUrlSegmentGroup: UrlSegmentGroup = targetUrlTree.root.children[PRIMARY_OUTLET];
-    const currentSegments: UrlSegment[] = currentUrlSegmentGroup.segments;
-    const targetSegments: UrlSegment[] = targetUrlSegmentGroup.segments;
-    const length: number = Math.min(currentSegments.length, targetSegments.length);
-
-    for (let i = 0; i < length; i++) {
-      if (currentSegments[i].path !== targetSegments[i].path) {
-        return false;
-      }
-    }
-
-    return targetSegments.length <= currentSegments.length;
-  }
 }
 
-interface SanitizedRepresentativeAdminModel {
+  interface SanitizedRepresentativeAdminModel {
   id?: string;
   name?: string;
+  lang?: string;
   email?: string;
   phoneNumber?: string;
   address?: string;

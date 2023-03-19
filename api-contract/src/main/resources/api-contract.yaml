@@ -12,13 +12,20 @@ tags:
   - name: government
 
 paths:
-  /api/admin/gov-representatives:
+  /{languageShortName}/api/admin/gov-representatives:
     post:
       tags:
         - government-representative
       summary: Add a new Government Representative
       description: Add a new Government Representative to the database
       operationId: addNewRepresentative
+      parameters:
+        - name: languageShortName
+          in: path
+          description: short name of selected language
+          required: true
+          schema:
+            type: string
       requestBody:
         description: Create a new Representative in the database
         content:
@@ -43,6 +50,13 @@ paths:
       description: Render all Government Representatives from the database
       operationId: renderAllRepresentatives
       x-interface-name: RepresentativeApi
+      parameters:
+        - name: languageShortName
+          in: path
+          description: short name of selected language
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Successful operation
@@ -63,7 +77,7 @@ paths:
         '405':
           description: Validation exception
 
-  /api/admin/gov-representatives/government/{governmentId}:
+  /{languageShortName}/api/admin/gov-representatives/government/{governmentId}:
     get:
       tags:
         - government-representative
@@ -80,6 +94,12 @@ paths:
             type: integer
             format: int64
             minimum: 1
+        - name: languageShortName
+          in: path
+          description: short name of selected language
+          required: true
+          schema:
+            type: string
         - name: page
           in: query
           description: The page number to retrieve
@@ -116,12 +136,20 @@ paths:
           description: Representative not found
         '405':
           description: Validation exception
+
   /api/admin/gov-representatives/government:
     get:
       tags:
         - government
       summary: Get government data
       operationId: renderAllGovernments
+      #parameters:
+        #- name: languageShortName
+          #in: path
+          #description: short name of selected language
+          #required: true
+          #schema:
+            #type: string
       responses:
         '200':
           description: OK
@@ -140,7 +168,6 @@ paths:
               description: Expiration date header
               schema:
                 type: string
-
 
 components:
   schemas:
@@ -209,6 +236,8 @@ components:
           description: Any extra, useful information
           type: string
           example: 'Főosztály megnevezése: '
+        lang:
+          type: string
         availability:
           $ref: '#/components/schemas/Availability'
 
@@ -267,3 +296,14 @@ components:
         - AVAILABLE
         - ARCHIVE
         - DELETED
+
+    Language:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        shortName:
+          type: string
+        name:
+          type: string

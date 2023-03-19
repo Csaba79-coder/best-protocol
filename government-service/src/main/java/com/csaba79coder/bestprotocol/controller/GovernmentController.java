@@ -17,7 +17,6 @@ public class GovernmentController implements GovernmentApi {
 
     private final GovernmentService governmentService;
 
-
     @Override
     public ResponseEntity<List<GovernmentAdminModel>> renderAllGovernments() {
         return ResponseEntity.status(200).body(governmentService.findAllGovernments());

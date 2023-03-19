@@ -12,5 +12,6 @@ import java.util.UUID;
 public interface RepresentativeRepository extends JpaRepository<Representative, UUID> {
     // List<RepresentativeAdminModel> findRepresentativeByGovernmentId(Long id);
     // Page<RepresentativeAdminModel> findByGovernmentId(@Param("government_id") Long governmentId, Pageable pageable);
-    List<Representative> findRepresentativeByGovernmentId(@Param("government_id") Long governmentId);
+    List<Representative> findRepresentativeByLanguageShortNameAndGovernmentId(@Param("language_short_name") String languageShortname, @Param("government_id") Long governmentId);
+    List<Representative> findAllByLanguageShortName(String languageShortName);
 }

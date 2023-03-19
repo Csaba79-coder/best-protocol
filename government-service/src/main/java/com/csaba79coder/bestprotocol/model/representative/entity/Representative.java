@@ -37,6 +37,8 @@ public class Representative extends Auditable {
     @Column(name = "secretairat")
     private String secretairat;
 
+    @Column(name = "language_short_name")
+    private String languageShortName;
     @Column(name = "job_title")
     private String jobTitle;
 

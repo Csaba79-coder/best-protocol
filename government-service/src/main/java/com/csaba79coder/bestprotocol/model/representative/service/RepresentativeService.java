@@ -22,12 +22,12 @@ public class RepresentativeService {
     private final RepresentativeRepository representativeRepository;
     private final GovernmentRepository governmentRepository;
 
-    public RepresentativeAdminModel addNewRepresentative(String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
-        return Mapper.mapRepresentativeEntityToAdminModel(representativeRepository.save(Mapper.mapFieldIntoEntity(name, jobTitle, government, secretairat, address, phoneNumber, email, image, note)));
+    public RepresentativeAdminModel addNewRepresentative(String languageShortName, String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
+        return Mapper.mapRepresentativeEntityToAdminModel(representativeRepository.save(Mapper.mapFieldIntoEntity(languageShortName, name, jobTitle, government, secretairat, address, phoneNumber, email, image, note)));
     }
 
-    public List<RepresentativeAdminModel> renderAllRepresentatives() {
-        return representativeRepository.findAll()
+    public List<RepresentativeAdminModel> renderAllRepresentatives(String languageShortName) {
+        return representativeRepository.findAllByLanguageShortName(languageShortName)
                 .stream()
                 .map(Mapper::mapRepresentativeEntityToAdminModel)
                 .collect(Collectors.toList());
@@ -42,8 +42,8 @@ public class RepresentativeService {
                 });
     }
 
-    public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(Long governmentId) {
-        return representativeRepository.findRepresentativeByGovernmentId(governmentId)
+    public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(String languageShortName, Long governmentId) {
+        return representativeRepository.findRepresentativeByLanguageShortNameAndGovernmentId(languageShortName, governmentId)
                 .stream()
                 .map(Mapper::mapRepresentativeEntityToAdminModel)
                 .collect(Collectors.toList());
