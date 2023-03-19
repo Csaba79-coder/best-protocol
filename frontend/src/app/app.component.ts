@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
 
     // Set the selected language in the component
     this.selectedLanguage = lang;
+    window.location.reload();
   }
 }
 
