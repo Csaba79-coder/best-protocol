@@ -17,8 +17,13 @@ public class GovernmentController implements GovernmentApi {
 
     private final GovernmentService governmentService;
 
-    @Override
+    /*@Override
     public ResponseEntity<List<GovernmentAdminModel>> renderAllGovernments() {
         return ResponseEntity.status(200).body(governmentService.findAllGovernments());
+    }*/
+
+    @Override
+    public ResponseEntity<List<GovernmentAdminModel>> renderAllGovernments(String languageShortName) {
+        return ResponseEntity.status(200).body(governmentService.findAllGovernmentsByLang(languageShortName));
     }
 }

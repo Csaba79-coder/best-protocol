@@ -8,7 +8,7 @@ import {
   Availability, GovernmentAdminModel,
   GovernmentRepresentativeService, GovernmentService
 } from '../../../../../build/openapi/government-service';
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 
 @Component({
   selector: 'app-representative-list',
@@ -19,20 +19,23 @@ import {Observable} from "rxjs";
 export class RepresentativeListComponent implements OnInit {
   representatives: SanitizedRepresentativeAdminModel[] = [];
   currentLanguage: string;
-  governments$: Observable<GovernmentAdminModel[]> = this.governmentService.renderAllGovernments();
+  governments$: Observable<GovernmentAdminModel[]>;
   currentGovernmentId?: number;
 
   constructor(
-    private readonly representativeService: GovernmentRepresentativeService,
-    private readonly governmentService: GovernmentService,
-    private sanitizer: DomSanitizer,
-    private route: ActivatedRoute,
-    private router: Router
+      private readonly representativeService: GovernmentRepresentativeService,
+      private readonly governmentService: GovernmentService,
+      private sanitizer: DomSanitizer,
+      private route: ActivatedRoute,
+      private router: Router
   ) {
     // Initialize currentLanguage to the language stored in local storage, or to 'hu' if it's not set yet
     this.currentLanguage = window.localStorage.getItem('lang') || 'hu';
+    // Update governments$ to only fetch governments for the current language
+    this.governments$ = this.governmentService.renderAllGovernments(this.currentLanguage).pipe(
+        map(governments => governments.filter(government => government.languageShortName === this.currentLanguage))
+    );
   }
-
 
   ngOnInit(): void {
     this.listRepresentatives();
@@ -55,6 +58,7 @@ export class RepresentativeListComponent implements OnInit {
     // Update the displayed data
     this.listRepresentatives();
   }
+
 
   private listRepresentatives() {
     this.route.params.subscribe(params => {

@@ -28,6 +28,9 @@ public class Government extends IdentifierLong {
     @OrderBy
     private String name;
 
+    @Column(name = "language_short_name")
+    private String languageShortName;
+
     @OneToMany(mappedBy = "government", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("name")
     private Set<Representative> representatives = new HashSet<>();

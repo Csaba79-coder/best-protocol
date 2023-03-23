@@ -137,19 +137,19 @@ paths:
         '405':
           description: Validation exception
 
-  /api/admin/gov-representatives/government:
+  /{languageShortName}/api/admin/gov-representatives/government:
     get:
       tags:
         - government
       summary: Get government data
       operationId: renderAllGovernments
-      #parameters:
-        #- name: languageShortName
-          #in: path
-          #description: short name of selected language
-          #required: true
-          #schema:
-            #type: string
+      parameters:
+        - name: languageShortName
+          in: path
+          description: short name of selected language
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -288,6 +288,8 @@ components:
           type: integer
           format: int64
         name:
+          type: string
+        languageShortName:
           type: string
 
     Availability:

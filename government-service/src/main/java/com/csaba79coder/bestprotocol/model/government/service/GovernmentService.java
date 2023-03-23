@@ -21,4 +21,11 @@ public class GovernmentService {
                 .map(Mapper::mapGovernmentEntityToAdminModel)
                 .collect(Collectors.toList());
     }
+
+    public List<GovernmentAdminModel> findAllGovernmentsByLang(String lang) {
+        return governmentRepository.findGovernmentByLanguageShortNameOrderByNameAsc(lang)
+                .stream()
+                .map(Mapper::mapGovernmentEntityToAdminModel)
+                .collect(Collectors.toList());
+    }
 }
