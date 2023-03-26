@@ -4,6 +4,7 @@ import com.csaba79coder.bestprotocol.model.base.entity.Auditable;
 import com.csaba79coder.bestprotocol.model.government.entity.Government;
 import com.csaba79coder.bestprotocol.model.value.Availability;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -20,6 +21,7 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "representative")
+@Embeddable
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,23 +29,37 @@ import org.hibernate.annotations.Where;
 @Where(clause = "availability != 'DELETED'")
 public class Representative extends Auditable {
 
-    @Column(name = "name")
-    private String name;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "government_id")
     private Government government;
 
+    // TODO create a previous job title (store in a set for avoiding the duplication!)
+    /*@Column(name= "previous_job_title")
+    private List<String> previousJobTitles = new ArrayList<>();*/
+
+    @Column(name = "languageShortName")
+    private String languageShortName;
+
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "secretairat")
     private String secretairat;
 
-    @Column(name = "language_short_name")
-    private String languageShortName;
     @Column(name = "job_title")
     private String jobTitle;
 
     @Column(name = "address")
     private String address;
+
+    @Column(name ="country")
+    private String country;
+
+    @Column(name = "note")
+    private String note;
+
+    @Column(name = "secret_note")
+    private String secretNote;
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -55,8 +71,6 @@ public class Representative extends Auditable {
     @Column(name = "image",length = Integer.MAX_VALUE, nullable = false)
     private byte[] image;
 
-    @Column(name = "note")
-    private String note;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "availability")

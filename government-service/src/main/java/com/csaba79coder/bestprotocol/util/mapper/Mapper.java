@@ -24,7 +24,6 @@ public class Mapper {
     public static Representative mapFieldIntoEntity(String languageShortName, String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
         Representative entity = new Representative();
         entity.setName(name);
-        entity.setLanguageShortName(languageShortName);
         entity.setJobTitle(jobTitle);
         // TODO check it! 
         // entity.setGovernment(representativeService.findGovernmentByName(government));
@@ -60,7 +59,6 @@ public class Mapper {
                 .createdBy(entity.getCreatedBy())
                 .updatedBy(entity.getUpdatedBy())
                 .name(entity.getName())
-                .lang(entity.getLanguageShortName())
                 .jobTitle(entity.getJobTitle())
                 .government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
                 .secretairat(entity.getSecretairat())

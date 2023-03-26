@@ -18,7 +18,6 @@
     <modules>
         <module>api-contract</module>
         <module>government-service</module>
-        <module>translation-service</module>
     </modules>
 
     <properties>
