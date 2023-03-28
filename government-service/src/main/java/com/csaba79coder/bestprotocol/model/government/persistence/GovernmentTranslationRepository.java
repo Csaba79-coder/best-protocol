@@ -13,4 +13,6 @@ public interface GovernmentTranslationRepository extends JpaRepository<Governmen
     List<GovernmentTranslation> findGovernmentTranslationByLanguageShortNameAndGovernmentId(String languageShortName, Long governmentId);
     List<GovernmentTranslation> findGovernmentTranslationByLanguageShortName(String languageShortName);
     Optional<GovernmentTranslation> findGovernmentByNameContainsIgnoreCase(String name);
+    Optional<GovernmentTranslation> findGovernmentTranslationById(Long id);
+    GovernmentTranslation findByGovernmentIdAndLanguageShortName(Long governmentId, String languageShortName);
 }

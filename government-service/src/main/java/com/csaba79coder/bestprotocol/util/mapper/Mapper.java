@@ -2,9 +2,11 @@ package com.csaba79coder.bestprotocol.util.mapper;
 
 import com.csaba79coder.bestprotocol.model.Availability;
 import com.csaba79coder.bestprotocol.model.GovernmentAdminModel;
+import com.csaba79coder.bestprotocol.model.GovernmentTranslationModel;
 import com.csaba79coder.bestprotocol.model.NewRepresentativeAdminModel;
 import com.csaba79coder.bestprotocol.model.RepresentativeAdminModel;
 import com.csaba79coder.bestprotocol.model.government.entity.Government;
+import com.csaba79coder.bestprotocol.model.government.entity.GovernmentTranslation;
 import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import com.csaba79coder.bestprotocol.util.ImageUtil;
 import org.modelmapper.ModelMapper;
@@ -60,7 +62,7 @@ public class Mapper {
                 .updatedBy(entity.getUpdatedBy())
                 .name(entity.getName())
                 .jobTitle(entity.getJobTitle())
-                .government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
+                //.government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
                 .secretairat(entity.getSecretairat())
                 .address(entity.getAddress())
                 .phoneNumber(entity.getPhoneNumber())
@@ -81,4 +83,17 @@ public class Mapper {
         modelMapper.map(entity, model);
         return model;
     }
+
+    public static GovernmentAdminModel mapGovernmentTranslationToAdminModel(GovernmentTranslation translation) {
+        GovernmentAdminModel model = new GovernmentAdminModel();
+        modelMapper.map(translation, model);
+        return model;
+    }
+
+    public static GovernmentTranslationModel mapGovernmentTranslationToGovernmentAdminModel(GovernmentTranslation translation) {
+        GovernmentTranslationModel model = new GovernmentTranslationModel();
+        modelMapper.map(translation, model);
+        return model;
+    }
+
 }
