@@ -38,10 +38,6 @@ public class RepresentativeService {
                 .stream()
                 .map(representative -> getRepresentativeWithTranslation(languageShortName))
                 .collect(Collectors.toList());
-        /*return representativeRepository.findAllByLanguageShortName(languageShortName)
-                .stream()
-                .map(Mapper::mapRepresentativeEntityToAdminModel)
-                .collect(Collectors.toList());*/
     }
 
     public Government findGovernmentByName(String government) {
@@ -57,7 +53,7 @@ public class RepresentativeService {
     public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(String languageShortName, Long governmentId) {
         return representativeRepository.findRepresentativeByLanguageShortNameAndGovernmentId(languageShortName, governmentId)
                 .stream()
-                .map(Mapper::mapRepresentativeEntityToAdminModel)
+                .map(representative -> getRepresentativeWithTranslation(languageShortName))
                 .collect(Collectors.toList());
     }
 

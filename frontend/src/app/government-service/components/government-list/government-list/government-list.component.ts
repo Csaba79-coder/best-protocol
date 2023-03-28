@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  GovernmentAdminModel,
   GovernmentService,
   GovernmentTranslationModel
 } from '../../../../../../build/openapi/government-service';

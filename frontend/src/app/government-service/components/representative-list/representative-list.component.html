@@ -17,8 +17,13 @@
           </li>
           <ng-container *ngIf="(governments$ | async) as governments">
             <li *ngFor="let government of governments">
-              <a [routerLink]="['/', currentLanguage, 'api', 'admin', 'gov-representatives', 'government', government?.id]"
+              <!--<a [routerLink]="['/', currentLanguage, 'api', 'admin', 'gov-representatives', 'governments', government?.id]"
                  routerLinkActive="active-link">
+                {{ government.name }}
+              </a>-->
+              <a [routerLink]="['/', currentLanguage, 'api', 'admin', 'gov-representatives', 'governments', government?.id]"
+                 routerLinkActive="active-link"
+                 [queryParamsHandling]="'merge'">
                 {{ government.name }}
               </a>
             </li>
