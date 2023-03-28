@@ -6,7 +6,7 @@ import {
 
 import {
   Availability, GovernmentAdminModel,
-  GovernmentRepresentativeService, GovernmentService
+  GovernmentRepresentativeService, GovernmentService, GovernmentTranslationModel
 } from '../../../../../build/openapi/government-service';
 import {map, Observable} from "rxjs";
 
@@ -19,7 +19,7 @@ import {map, Observable} from "rxjs";
 export class RepresentativeListComponent implements OnInit {
   representatives: SanitizedRepresentativeAdminModel[] = [];
   currentLanguage: string;
-  governments$: Observable<GovernmentAdminModel[]>;
+  governments$: Observable<GovernmentTranslationModel[]>;
   currentGovernmentId?: number;
 
   constructor(
@@ -33,7 +33,7 @@ export class RepresentativeListComponent implements OnInit {
     this.currentLanguage = window.localStorage.getItem('lang') || 'hu';
     // Update governments$ to only fetch governments for the current language
     this.governments$ = this.governmentService.renderAllGovernments(this.currentLanguage).pipe(
-        map(governments => governments.filter(government => government.languageShortName === this.currentLanguage))
+        map(governments => governments.filter(government => government.language_short_name === this.currentLanguage))
     );
   }
 

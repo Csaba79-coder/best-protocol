@@ -1,7 +1,6 @@
 package com.csaba79coder.bestprotocol.controller;
 
 import com.csaba79coder.bestprotocol.api.GovernmentApi;
-import com.csaba79coder.bestprotocol.model.GovernmentAdminModel;
 import com.csaba79coder.bestprotocol.model.GovernmentTranslationModel;
 import com.csaba79coder.bestprotocol.model.government.service.GovernmentService;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +24,11 @@ public class GovernmentController implements GovernmentApi {
 
     @Override
     public ResponseEntity<List<GovernmentTranslationModel>> renderAllGovernments(String languageShortName) {
-        return ResponseEntity.status(200).body(governmentService.findAllGovernmentsByLang(languageShortName));
+        return ResponseEntity.status(200).body(governmentService.findAllGovernmentsByLangAndGovernmentId(languageShortName));
     }
 
     @Override
     public ResponseEntity<List<GovernmentTranslationModel>> renderAllGovernmentsById(String languageShortName, Long governmentId) {
-        return null;
+        return ResponseEntity.status(200).body(governmentService.findAllGovernmentsByLangAndGovernmentId(languageShortName, governmentId));
     }
 }

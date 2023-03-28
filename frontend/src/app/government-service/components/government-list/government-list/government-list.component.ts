@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GovernmentAdminModel, GovernmentService } from '../../../../../../build/openapi/government-service';
+import {
+  GovernmentAdminModel,
+  GovernmentService,
+  GovernmentTranslationModel
+} from '../../../../../../build/openapi/government-service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -9,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class GovernmentListComponent implements OnInit {
 
-  public governments: GovernmentAdminModel[] = [];
+  public governments: GovernmentTranslationModel[] = [];
   public languageShortName?: string;
 
   constructor(
@@ -25,7 +29,7 @@ export class GovernmentListComponent implements OnInit {
     this.governmentService.renderAllGovernments(this.activatedRoute.snapshot.paramMap.get('languageShortName')!).subscribe(
         (response) => {
           // filter governments by languageShortName
-          this.governments = response.filter(government => government.languageShortName === this.languageShortName);
+          this.governments = response.filter(government => government.language_short_name === this.languageShortName);
         },
         (error) => {
           console.error(error);

@@ -12,8 +12,8 @@ import {FormsModule} from "@angular/forms";
 const routes: Routes = [
     {path: ':languageShortName/api/admin/governments', component: GovernmentListComponent},
   {path: ':languageShortName/api/admin/gov-representatives', component: RepresentativeListComponent },
-  {path: ':languageShortName/api/admin/gov-representatives/government', component: RepresentativeListComponent },
-  {path: ':languageShortName/api/admin/gov-representatives/government/:governmentId', component: RepresentativeListComponent },
+  {path: ':languageShortName/api/admin/gov-representatives/governments', component: RepresentativeListComponent },
+  {path: ':languageShortName/api/admin/gov-representatives/governments/:governmentId', component: RepresentativeListComponent },
   {path: '', redirectTo: '/hu/api/admin/gov-representatives', pathMatch: 'full' },
   {path: '**', redirectTo: '/hu/api/admin/gov-representatives', pathMatch: 'full' }
 ];

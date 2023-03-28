@@ -19,9 +19,17 @@ public class GovernmentService {
 
     private final GovernmentTranslationRepository governmentTranslationRepository;
 
-    public List<GovernmentTranslationModel> findAllGovernmentsByLang(String lang) {
+    public List<GovernmentTranslationModel> findAllGovernmentsByLangAndGovernmentId(String lang) {
         // TODO from Translation creating immediately the Model!
         return governmentTranslationRepository.findGovernmentTranslationByLanguageShortName(lang)
+                .stream()
+                .map(Mapper::mapGovernmentTranslationToGovernmentAdminModel)
+                .collect(Collectors.toList());
+    }
+
+    public List<GovernmentTranslationModel> findAllGovernmentsByLangAndGovernmentId(String lang, Long id) {
+        // TODO from Translation creating immediately the Model!
+        return governmentTranslationRepository.findGovernmentTranslationByLanguageShortNameAndGovernmentId(lang, id)
                 .stream()
                 .map(Mapper::mapGovernmentTranslationToGovernmentAdminModel)
                 .collect(Collectors.toList());
