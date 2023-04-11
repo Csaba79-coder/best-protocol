@@ -2,6 +2,7 @@ package com.csaba79coder.bestprotocol.model.government.service;
 
 import com.csaba79coder.bestprotocol.model.GovernmentTranslationModel;
 import com.csaba79coder.bestprotocol.model.government.entity.GovernmentTranslation;
+import com.csaba79coder.bestprotocol.model.government.persistence.GovernmentRepository;
 import com.csaba79coder.bestprotocol.model.government.persistence.GovernmentTranslationRepository;
 import com.csaba79coder.bestprotocol.util.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class GovernmentService {
+    private final GovernmentRepository governmentRepository;
 
     private final GovernmentTranslationRepository governmentTranslationRepository;
 

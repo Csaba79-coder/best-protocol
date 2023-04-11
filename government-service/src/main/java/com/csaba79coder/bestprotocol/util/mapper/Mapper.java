@@ -25,12 +25,12 @@ public class Mapper {
 
     public static Representative mapFieldIntoEntity(String languageShortName, String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
         Representative entity = new Representative();
-        entity.setName(name);
-        entity.setJobTitle(jobTitle);
+        /*entity.setName(name);
+        entity.setJobTitle(jobTitle);*/
         // TODO check it! 
         // entity.setGovernment(representativeService.findGovernmentByName(government));
-        entity.setSecretairat(secretairat);
-        entity.setAddress(address);
+        /*entity.setSecretairat(secretairat);
+        entity.setAddress(address);*/
         entity.setPhoneNumber(phoneNumber);
         entity.setEmail(email);
         if (image.isEmpty()) {
@@ -49,7 +49,7 @@ public class Mapper {
                 throw new RuntimeException(e);
             }
         }
-        entity.setNote(note);
+        // entity.setNote(note);
         return entity;
     }
 
@@ -60,15 +60,15 @@ public class Mapper {
                 .updatedAt(String.valueOf(entity.getUpdatedAt()))
                 .createdBy(entity.getCreatedBy())
                 .updatedBy(entity.getUpdatedBy())
-                .name(entity.getName())
-                .jobTitle(entity.getJobTitle())
+                //.name(entity.getName())
+                //.jobTitle(entity.getJobTitle())
                 //.government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
-                .secretairat(entity.getSecretairat())
-                .address(entity.getAddress())
+                //.secretairat(entity.getSecretairat())
+                //.address(entity.getAddress())
                 .phoneNumber(entity.getPhoneNumber())
                 .email(entity.getEmail())
                 .image(ImageUtil.decompressImage(entity.getImage()))
-                .note(entity.getNote())
+                //.note(entity.getNote())
                 .availability(Availability.valueOf(entity.getAvailability().name()));
     }
 

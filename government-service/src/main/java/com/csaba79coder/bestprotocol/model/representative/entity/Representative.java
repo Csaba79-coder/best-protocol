@@ -3,6 +3,7 @@ package com.csaba79coder.bestprotocol.model.representative.entity;
 import com.csaba79coder.bestprotocol.model.base.entity.Auditable;
 import com.csaba79coder.bestprotocol.model.government.entity.Government;
 import com.csaba79coder.bestprotocol.model.value.Availability;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
@@ -12,12 +13,16 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "representative")
@@ -33,33 +38,16 @@ public class Representative extends Auditable {
     @JoinColumn(name = "government_id")
     private Government government;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "representative")
+    private List<RepresentativeTranslation> fieldTranslations = new ArrayList<>();
+
     // TODO create a previous job title (store in a set for avoiding the duplication!)
     /*@Column(name= "previous_job_title")
     private List<String> previousJobTitles = new ArrayList<>();*/
 
-    @Column(name = "languageShortName")
+    // TODO refactor logic to remove the langShortName from here!
+    @Column(name = "language_short_name")
     private String languageShortName;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "secretairat")
-    private String secretairat;
-
-    @Column(name = "job_title")
-    private String jobTitle;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name ="country")
-    private String country;
-
-    @Column(name = "note")
-    private String note;
-
-    @Column(name = "secret_note")
-    private String secretNote;
 
     @Column(name = "phone_number")
     private String phoneNumber;

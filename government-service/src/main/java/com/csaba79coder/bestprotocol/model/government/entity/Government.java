@@ -5,7 +5,6 @@ import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +23,6 @@ import java.util.Set;
 public class Government extends IdentifierLong {
 
     @OneToMany(mappedBy = "government", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("name")
+    // @OrderBy("name")
     private Set<Representative> representatives = new HashSet<>();
 }
