@@ -15,4 +15,6 @@ public interface RepresentativeRepository extends JpaRepository<Representative, 
     List<Representative> findRepresentativeByLanguageShortNameAndGovernmentId(@Param("language_short_name") String languageShortname, @Param("government_id") Long governmentId);
     List<Representative> findAllByLanguageShortName(String languageShortName);
     Representative findRepresentativeByLanguageShortName(String languageShortName);
+
+    List<Representative> findRepresentativeByGovernmentId( @Param("government_id") Long governmentId);
 }

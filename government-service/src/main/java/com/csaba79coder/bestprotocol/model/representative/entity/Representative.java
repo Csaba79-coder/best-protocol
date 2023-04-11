@@ -2,6 +2,7 @@ package com.csaba79coder.bestprotocol.model.representative.entity;
 
 import com.csaba79coder.bestprotocol.model.base.entity.Auditable;
 import com.csaba79coder.bestprotocol.model.government.entity.Government;
+import com.csaba79coder.bestprotocol.model.government.entity.PreviousJobTitleTranslation;
 import com.csaba79coder.bestprotocol.model.value.Availability;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -41,13 +42,8 @@ public class Representative extends Auditable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "representative")
     private List<RepresentativeTranslation> fieldTranslations = new ArrayList<>();
 
-    // TODO create a previous job title (store in a set for avoiding the duplication!)
-    /*@Column(name= "previous_job_title")
-    private List<String> previousJobTitles = new ArrayList<>();*/
-
-    // TODO refactor logic to remove the langShortName from here!
-    @Column(name = "language_short_name")
-    private String languageShortName;
+    @OneToMany(mappedBy = "representative", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PreviousJobTitleTranslation> previousJobTitleTranslations = new ArrayList<>();
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -63,4 +59,7 @@ public class Representative extends Auditable {
     @Enumerated(EnumType.STRING)
     @Column(name = "availability")
     private Availability availability = Availability.AVAILABLE;
+
+    @Column(name = "language_short_name")
+    private String languageShortName = null;
 }

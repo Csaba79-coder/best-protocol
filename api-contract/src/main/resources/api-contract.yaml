@@ -246,6 +246,10 @@ components:
           $ref: '#/components/schemas/GovernmentAdminModel'
         representativeTranslation:
           $ref: '#/components/schemas/RepresentativeTranslationManagerModel'
+        previousJobTitle:
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviousJobTitleTranslationModel'
         phoneNumber:
           description: Phone number of the Representative entity
           type: string
@@ -284,6 +288,10 @@ components:
           description: Address of the Agency
           type: string
           example: "2011 Budakalász, Gerinc utca hrsz. 2287/3"
+        country:
+          description: country of the Agency
+          type: string
+          example: "Magyarország"
         phoneNumber:
           description: Phone number of the Representative entity
           type: string
@@ -304,9 +312,10 @@ components:
     RepresentativeTranslationManagerModel:
       type: object
       properties:
-        type: string
-        format: uuid
-        example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+        id:
+          type: string
+          format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
         languageShortName:
           type: string
         name:
@@ -321,8 +330,6 @@ components:
           description: Job title of the Government Representative
           type: string
           example: "Miniszterelnökséget vezető miniszter"
-        previousJobTitle:
-          $ref: '#/components/schemas/PreviousJobTitleModel'
         address:
           description: Address of the Agency
           type: string
@@ -338,17 +345,6 @@ components:
         secretNote:
           description: Secret note that is only visible for the Managers
           example: 'Secret message'
-
-    PreviousJobTitleModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        languageShortName:
-          type: string
 
     PreviousJobTitleTranslationModel:
       type: object
