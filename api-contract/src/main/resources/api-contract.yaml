@@ -10,6 +10,7 @@ servers:
 tags:
   - name: government-representative
   - name: government
+  - name: menu
 
 paths:
   /{languageShortName}/api/admin/gov-representatives:
@@ -199,6 +200,42 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GovernmentTranslationModel'
+          headers:
+            Cache-Control:
+              description: Cache control header
+              schema:
+                type: string
+            Expires:
+              description: Expiration date header
+              schema:
+                type: string
+  /{languageShortName}/api/admin/menu:
+    get:
+      tags:
+        - menu
+      summary: Get menu translation
+      operationId: renderAllMenuTranslations
+      parameters:
+        - name: languageShortName
+          in: path
+          description: short name of selected language
+          required: true
+          schema:
+            type: string
+        - name: translationKey
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenuTranslationModel'
           headers:
             Cache-Control:
               description: Cache control header
@@ -401,4 +438,17 @@ components:
         shortName:
           type: string
         name:
+          type: string
+
+    MenuTranslationModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        languageShortName:
+          type: string
+        translationKey:
+          type: string
+        translationValue:
           type: string

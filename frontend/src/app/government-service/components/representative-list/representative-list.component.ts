@@ -6,7 +6,7 @@ import {
 
 import {
   Availability, GovernmentAdminModel,
-  GovernmentRepresentativeService, GovernmentService, GovernmentTranslationModel
+  GovernmentRepresentativeService, GovernmentService, GovernmentTranslationModel, MenuService, MenuTranslationModel
 } from '../../../../../build/openapi/government-service';
 import {map, Observable} from "rxjs";
 
@@ -21,13 +21,18 @@ export class RepresentativeListComponent implements OnInit {
   currentLanguage: string;
   governments$: Observable<GovernmentTranslationModel[]>;
   currentGovernmentId?: number;
+  public allTranslation?: string;
+  public modifyButton?: string;
+  public deleteButton?: string;
 
   constructor(
-      private readonly representativeService: GovernmentRepresentativeService,
-      private readonly governmentService: GovernmentService,
-      private sanitizer: DomSanitizer,
-      private route: ActivatedRoute,
-      private router: Router
+    private readonly representativeService: GovernmentRepresentativeService,
+    private readonly governmentService: GovernmentService,
+    readonly menuService: MenuService,
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private router: Router
+
   ) {
     // Initialize currentLanguage to the language stored in local storage, or to 'hu' if it's not set yet
     this.currentLanguage = window.localStorage.getItem('lang') || 'hu';
@@ -38,7 +43,35 @@ export class RepresentativeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getMenuTranslation();
     this.listRepresentatives();
+  }
+
+  public getMenuTranslation() {
+    this.menuService.renderAllMenuTranslations(this.currentLanguage, 'all')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this["allTranslation"] = data[0].translationValue!;
+        } else {
+          this.allTranslation = 'All'; // Or any default value you choose
+        }
+      });
+    this.menuService.renderAllMenuTranslations(this.currentLanguage, 'modify_button')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.modifyButton = data[0].translationValue!;
+        } else {
+          this.modifyButton = 'Modify'; // Or any default value you choose
+        }
+      });
+    this.menuService.renderAllMenuTranslations(this.currentLanguage, 'delete_button')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.deleteButton = data[0].translationValue!;
+        } else {
+          this.deleteButton = 'Delete'; // Or any default value you choose
+        }
+      });
   }
 
   changeLang(lang: string): void {
@@ -58,7 +91,6 @@ export class RepresentativeListComponent implements OnInit {
     // Update the displayed data
     this.listRepresentatives();
   }
-
 
   private listRepresentatives() {
     this.route.params.subscribe(params => {
