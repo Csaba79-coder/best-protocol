@@ -367,6 +367,9 @@ components:
           type: string
         languageShortName:
           type: string
+        governmentId:
+          type: integer
+          format: int64
 
     GovernmentTranslationModel:
       type: object
@@ -378,6 +381,9 @@ components:
           type: string
         name:
           type: string
+        governmentId:
+          type: integer
+          format: int64
 
     Availability:
       type: string
