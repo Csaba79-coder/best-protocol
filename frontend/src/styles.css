@@ -546,6 +546,13 @@ input.au-input.au-input-xl{
   font-weight:800;
   color:#0da8e4
 }
+
+.secret {
+  margin:15px 0 0;
+  font-weight:800;
+  color:#05143f
+}
+
 .product-box h1{
   font-size:18px;
   border-bottom:1px solid #ccc;

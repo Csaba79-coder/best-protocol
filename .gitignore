@@ -90,4 +90,5 @@ bin/
 # Project exclude paths
 /api-contract/target/
 /government-service/target/
+/translation-service/target/
 /frontend/build/

@@ -12,13 +12,14 @@
             <a [routerLink]="['/', currentLanguage, 'api', 'admin', 'gov-representatives']"
                routerLinkActive="active-link"
                [routerLinkActiveOptions]="{exact: true}">
-              Összes
+              {{ allTranslation }}
             </a>
           </li>
           <ng-container *ngIf="(governments$ | async) as governments">
             <li *ngFor="let government of governments">
-              <a [routerLink]="['/', currentLanguage, 'api', 'admin', 'gov-representatives', 'government', government?.id]"
-                 routerLinkActive="active-link">
+              <a [routerLink]="['/', currentLanguage, 'api', 'admin', 'gov-representatives', 'governments', government?.governmentId]"
+                 routerLinkActive="active-link"
+                 [queryParamsHandling]="'merge'">
                 {{ government.name }}
               </a>
             </li>
@@ -41,6 +42,9 @@
             <div class="price">
               {{ tempRepresentative.jobTitle }}
             </div>
+            <div class="secret">
+              {{ tempRepresentative.secretNote }}
+            </div>
             <div class="description">
               {{ tempRepresentative.governmentName }}
             </div>
@@ -57,11 +61,14 @@
               {{ tempRepresentative.address }}
             </div>
             <div class="description">
+              {{ tempRepresentative.country }}
+            </div>
+            <div class="description">
               {{ tempRepresentative.note }}
             </div>
             <div style="display: flex; gap: 10px;">
-              <a href="#" class="primary-btn">Módosít</a>
-              <a href="#" class="primary-btn">Töröl</a>
+              <a href="#" class="primary-btn">{{ modifyButton || 'Modify' }}</a>
+              <a href="#" class="primary-btn">{{ deleteButton || 'Delete' }}</a>
             </div>
             <br><br>
           </div>

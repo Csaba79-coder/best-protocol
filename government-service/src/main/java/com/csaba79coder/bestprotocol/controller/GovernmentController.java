@@ -1,7 +1,7 @@
 package com.csaba79coder.bestprotocol.controller;
 
 import com.csaba79coder.bestprotocol.api.GovernmentApi;
-import com.csaba79coder.bestprotocol.model.GovernmentAdminModel;
+import com.csaba79coder.bestprotocol.model.GovernmentTranslationModel;
 import com.csaba79coder.bestprotocol.model.government.service.GovernmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,18 @@ public class GovernmentController implements GovernmentApi {
 
     private final GovernmentService governmentService;
 
-    @Override
+    /*@Override
     public ResponseEntity<List<GovernmentAdminModel>> renderAllGovernments() {
         return ResponseEntity.status(200).body(governmentService.findAllGovernments());
+    }*/
+
+    @Override
+    public ResponseEntity<List<GovernmentTranslationModel>> renderAllGovernments(String languageShortName) {
+        return ResponseEntity.status(200).body(governmentService.findAllGovernmentsByLangAndGovernmentId(languageShortName));
+    }
+
+    @Override
+    public ResponseEntity<List<GovernmentTranslationModel>> renderAllGovernmentsById(String languageShortName, Long governmentId) {
+        return ResponseEntity.status(200).body(governmentService.findAllGovernmentsByLangAndGovernmentId(languageShortName, governmentId));
     }
 }

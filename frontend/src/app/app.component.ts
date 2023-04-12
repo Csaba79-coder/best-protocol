@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {MenuService, MenuTranslationModel} from "../../build/openapi/government-service";
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,77 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'frontend';
   selectedLanguage: string;
+  public searchPlaceholder?: string;
+  public searchButton?: string;
+  public introductionMenu?: string;
+  public contactMenu?: string;
+  public serviceMenu?: string;
+  public questionMenu?: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              readonly menuService: MenuService,) {
     this.selectedLanguage = window.localStorage.getItem('lang') || 'hu';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getSearchTranslation();
+  }
+
+  public getSearchTranslation() {
+    this.menuService.renderAllMenuTranslations(this.selectedLanguage, 'search_placeholder')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this["searchPlaceholder"] = data[0].translationValue!;
+        } else {
+          this.searchPlaceholder = 'Data search ...'; // Or any default value you choose
+        }
+      });
+
+    this.menuService.renderAllMenuTranslations(this.selectedLanguage, 'search_button')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.searchButton = data[0].translationValue!;
+        } else {
+          this.searchButton = 'Search'; // Or any default value you choose
+        }
+      });
+
+    this.menuService.renderAllMenuTranslations(this.selectedLanguage, 'introduction')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.introductionMenu = data[0].translationValue!;
+        } else {
+          this.introductionMenu = 'Introduction'; // Or any default value you choose
+        }
+      });
+
+    this.menuService.renderAllMenuTranslations(this.selectedLanguage, 'contact')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.contactMenu = data[0].translationValue!;
+        } else {
+          this.contactMenu = 'Contact'; // Or any default value you choose
+        }
+      });
+
+    this.menuService.renderAllMenuTranslations(this.selectedLanguage, 'service')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.serviceMenu = data[0].translationValue!;
+        } else {
+          this.serviceMenu = 'Services'; // Or any default value you choose
+        }
+      });
+
+    this.menuService.renderAllMenuTranslations(this.selectedLanguage, 'question')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.questionMenu = data[0].translationValue!;
+        } else {
+          this.questionMenu = 'Frequently asked questions'; // Or any default value you choose
+        }
+      });
+  }
 
   changeLang(lang: string): void {
     // Store selected language in local storage

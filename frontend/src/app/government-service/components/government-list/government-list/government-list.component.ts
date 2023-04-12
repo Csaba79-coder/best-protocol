@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GovernmentAdminModel, GovernmentService } from '../../../../../../build/openapi/government-service';
-import { Router } from '@angular/router';
+import {
+  GovernmentService,
+  GovernmentTranslationModel
+} from '../../../../../../build/openapi/government-service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-government-list',
@@ -9,11 +12,12 @@ import { Router } from '@angular/router';
 })
 export class GovernmentListComponent implements OnInit {
 
-  public governments: GovernmentAdminModel[] = [];
+  public governments: GovernmentTranslationModel[] = [];
+  public languageShortName?: string;
 
   constructor(
-    private readonly governmentService: GovernmentService,
-    private readonly router: Router,
+      private readonly governmentService: GovernmentService,
+      private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -21,20 +25,14 @@ export class GovernmentListComponent implements OnInit {
   }
 
   private governmentList() {
-    this.governmentService.renderAllGovernments().subscribe(
-      (response) => {
-        this.governments = response;
-      },
-      (error) => {
-        console.error(error);
-      }
+    this.governmentService.renderAllGovernments(this.activatedRoute.snapshot.paramMap.get('languageShortName')!).subscribe(
+        (response) => {
+          // filter governments by languageShortName
+          this.governments = response.filter(government => government.language_short_name === this.languageShortName);
+        },
+        (error) => {
+          console.error(error);
+        }
     );
   }
-
-  goToGovernment(governmentId: string) {
-    this.router.navigate(['/api/admin/gov-representatives', governmentId]);
-  }
 }
-
-
-
