@@ -7,12 +7,10 @@
   <div class="menu-sidebar-content js-scrollbar1">
     <nav class="navbar-sidebar">
       <ul class="list-unstyled navbar-list">
-        <a routerLink="/api/admin/gov-representatives" routerLinkActive="active">All Governments</a>
+        <a routerLink="/{{ languageShortName }}/api/admin/gov-representatives" routerLinkActive="active">Összes</a>
         <li *ngFor="let government of governments">
-          <!--/api/admin/gov-representatives/government/{governmentId}-->
-          <!--<a routerLink="/api/admin/gov-representatives/government/goToGovernment(government?.id?.toString() ?? '')" routerLinkActive="active">{{ government?.name }}</a>-->
-          <!--<a (click)="goToGovernment(government?.id?.toString() ?? '')" routerLinkActive="active">{{ government?.name }}</a>-->
-          <a routerLink="/api/admin/gov-representatives/government/government?.id?.toString()" routerLinkActive="active-link">{{ government?.name }}</a>
+          <a routerLink="/{{ languageShortName }}/api/admin/gov-representatives/governments/{{ government.governmentId }}" routerLinkActive="active-link">{{ government.name }}</a>
+        </li>
       </ul>
     </nav>
   </div>

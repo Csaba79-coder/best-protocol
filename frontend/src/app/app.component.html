@@ -15,9 +15,9 @@
           <div class="header-wrap">
             <form class="form-header" onsubmit="return false;" method="GET">
               <input class="au-input au-input-xl" type="text" name="search"
-                     placeholder="Adat keresés ..." />
+                     [placeholder]="searchPlaceholder ?? 'Data search ...'" />
               <button class="au-btn-submit" type="submit">
-                Keresés
+                {{ searchButton || 'Search' }}
               </button>
             </form>
 
@@ -73,9 +73,9 @@
 <!-- END PAGE CONTAINER-->
 <footer>
   <ul>
-    <li><a href="#">Bemutatkozás</a></li>
-    <li><a href="#">Kapcsolat</a></li>
-    <li><a href="#">Szolgáltatások</a></li>
-    <li><a href="#">Gyakori kérdések</a></li>
+    <li><a href="#">{{ introductionMenu || 'Introduction' }}</a></li>
+    <li><a href="#">{{ contactMenu || 'Contact' }}</a></li>
+    <li><a href="#">{{ serviceMenu || 'Services' }}</a></li>
+    <li><a href="#">{{ questionMenu || 'Frequently asked questions' }}</a></li>
   </ul>
 </footer>

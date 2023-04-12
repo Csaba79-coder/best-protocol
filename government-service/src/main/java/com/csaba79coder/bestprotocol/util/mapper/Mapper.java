@@ -2,9 +2,13 @@ package com.csaba79coder.bestprotocol.util.mapper;
 
 import com.csaba79coder.bestprotocol.model.Availability;
 import com.csaba79coder.bestprotocol.model.GovernmentAdminModel;
+import com.csaba79coder.bestprotocol.model.GovernmentTranslationModel;
+import com.csaba79coder.bestprotocol.model.MenuTranslationModel;
 import com.csaba79coder.bestprotocol.model.NewRepresentativeAdminModel;
 import com.csaba79coder.bestprotocol.model.RepresentativeAdminModel;
 import com.csaba79coder.bestprotocol.model.government.entity.Government;
+import com.csaba79coder.bestprotocol.model.government.entity.GovernmentTranslation;
+import com.csaba79coder.bestprotocol.model.menu.entity.MenuTranslation;
 import com.csaba79coder.bestprotocol.model.representative.entity.Representative;
 import com.csaba79coder.bestprotocol.util.ImageUtil;
 import org.modelmapper.ModelMapper;
@@ -23,13 +27,12 @@ public class Mapper {
 
     public static Representative mapFieldIntoEntity(String languageShortName, String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
         Representative entity = new Representative();
-        entity.setName(name);
-        entity.setLanguageShortName(languageShortName);
-        entity.setJobTitle(jobTitle);
+        /*entity.setName(name);
+        entity.setJobTitle(jobTitle);*/
         // TODO check it! 
         // entity.setGovernment(representativeService.findGovernmentByName(government));
-        entity.setSecretairat(secretairat);
-        entity.setAddress(address);
+        /*entity.setSecretairat(secretairat);
+        entity.setAddress(address);*/
         entity.setPhoneNumber(phoneNumber);
         entity.setEmail(email);
         if (image.isEmpty()) {
@@ -48,7 +51,7 @@ public class Mapper {
                 throw new RuntimeException(e);
             }
         }
-        entity.setNote(note);
+        // entity.setNote(note);
         return entity;
     }
 
@@ -59,16 +62,15 @@ public class Mapper {
                 .updatedAt(String.valueOf(entity.getUpdatedAt()))
                 .createdBy(entity.getCreatedBy())
                 .updatedBy(entity.getUpdatedBy())
-                .name(entity.getName())
-                .lang(entity.getLanguageShortName())
-                .jobTitle(entity.getJobTitle())
-                .government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
-                .secretairat(entity.getSecretairat())
-                .address(entity.getAddress())
+                //.name(entity.getName())
+                //.jobTitle(entity.getJobTitle())
+                //.government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
+                //.secretairat(entity.getSecretairat())
+                //.address(entity.getAddress())
                 .phoneNumber(entity.getPhoneNumber())
                 .email(entity.getEmail())
                 .image(ImageUtil.decompressImage(entity.getImage()))
-                .note(entity.getNote())
+                //.note(entity.getNote())
                 .availability(Availability.valueOf(entity.getAvailability().name()));
     }
 
@@ -80,6 +82,24 @@ public class Mapper {
 
     public static GovernmentAdminModel mapGovernmentEntityToAdminModel(Government entity) {
         GovernmentAdminModel model = new GovernmentAdminModel();
+        modelMapper.map(entity, model);
+        return model;
+    }
+
+    public static GovernmentAdminModel mapGovernmentTranslationToAdminModel(GovernmentTranslation translation) {
+        GovernmentAdminModel model = new GovernmentAdminModel();
+        modelMapper.map(translation, model);
+        return model;
+    }
+
+    public static GovernmentTranslationModel mapGovernmentTranslationToGovernmentAdminModel(GovernmentTranslation translation) {
+        GovernmentTranslationModel model = new GovernmentTranslationModel();
+        modelMapper.map(translation, model);
+        return model;
+    }
+
+    public static MenuTranslationModel mapMenuTranslationEntityToModel(MenuTranslation entity) {
+        MenuTranslationModel model = new MenuTranslationModel();
         modelMapper.map(entity, model);
         return model;
     }

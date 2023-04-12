@@ -10,6 +10,7 @@ servers:
 tags:
   - name: government-representative
   - name: government
+  - name: menu
 
 paths:
   /{languageShortName}/api/admin/gov-representatives:
@@ -77,7 +78,7 @@ paths:
         '405':
           description: Validation exception
 
-  /{languageShortName}/api/admin/gov-representatives/government/{governmentId}:
+  /{languageShortName}/api/admin/gov-representatives/governments/{governmentId}:
     get:
       tags:
         - government-representative
@@ -137,19 +138,19 @@ paths:
         '405':
           description: Validation exception
 
-  /api/admin/gov-representatives/government:
+  /{languageShortName}/api/admin/governments:
     get:
       tags:
         - government
       summary: Get government data
       operationId: renderAllGovernments
-      #parameters:
-        #- name: languageShortName
-          #in: path
-          #description: short name of selected language
-          #required: true
-          #schema:
-            #type: string
+      parameters:
+        - name: languageShortName
+          in: path
+          description: short name of selected language
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -158,7 +159,83 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/GovernmentAdminModel'
+                  $ref: '#/components/schemas/GovernmentTranslationModel'
+          headers:
+            Cache-Control:
+              description: Cache control header
+              schema:
+                type: string
+            Expires:
+              description: Expiration date header
+              schema:
+                type: string
+
+  /{languageShortName}/api/admin/governments/{governmentId}:
+    get:
+      tags:
+        - government
+      summary: Get government data
+      operationId: renderAllGovernmentsById
+      parameters:
+        - name: languageShortName
+          in: path
+          description: short name of selected language
+          required: true
+          schema:
+            type: string
+        - name: governmentId
+          in: path
+          description: ID of the government to filter by
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GovernmentTranslationModel'
+          headers:
+            Cache-Control:
+              description: Cache control header
+              schema:
+                type: string
+            Expires:
+              description: Expiration date header
+              schema:
+                type: string
+  /{languageShortName}/api/admin/menu:
+    get:
+      tags:
+        - menu
+      summary: Get menu translation
+      operationId: renderAllMenuTranslations
+      parameters:
+        - name: languageShortName
+          in: path
+          description: short name of selected language
+          required: true
+          schema:
+            type: string
+        - name: translationKey
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenuTranslationModel'
           headers:
             Cache-Control:
               description: Cache control header
@@ -199,27 +276,17 @@ components:
           type: string
           format: uuid
           example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
-        name:
-          description: Name of the Representative entity
-          type: string
-          example: 'Vadász Csaba'
         government:
           #description: Name of the Ministry
           #type: string
           #example: "Miniszterelnökség"
           $ref: '#/components/schemas/GovernmentAdminModel'
-        secretairat:
-          description: Name of the Secretairat
-          type: string
-          example: "Közigzagatási államtitkár"
-        jobTitle:
-          description: Job title of the Government Representative
-          type: string
-          example: "Miniszterelnökséget vezető miniszter"
-        address:
-          description: Address of the Agency
-          type: string
-          example: "2011 Budakalász, Gerinc utca hrsz. 2287/3"
+        representativeTranslation:
+          $ref: '#/components/schemas/RepresentativeTranslationManagerModel'
+        previousJobTitle:
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviousJobTitleTranslationModel'
         phoneNumber:
           description: Phone number of the Representative entity
           type: string
@@ -232,12 +299,6 @@ components:
           description: Photo of the Representative
           type: string
           format: byte
-        note:
-          description: Any extra, useful information
-          type: string
-          example: 'Főosztály megnevezése: '
-        lang:
-          type: string
         availability:
           $ref: '#/components/schemas/Availability'
 
@@ -264,6 +325,10 @@ components:
           description: Address of the Agency
           type: string
           example: "2011 Budakalász, Gerinc utca hrsz. 2287/3"
+        country:
+          description: country of the Agency
+          type: string
+          example: "Magyarország"
         phoneNumber:
           description: Phone number of the Representative entity
           type: string
@@ -281,6 +346,54 @@ components:
           type: string
           example: 'ételérzékenység: nincs, egyéb infó: vegán'
 
+    RepresentativeTranslationManagerModel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+        languageShortName:
+          type: string
+        name:
+          description: Name of the Representative entity
+          type: string
+          example: 'Vadász Csaba'
+        secretairat:
+          description: Name of the Secretairat
+          type: string
+          example: "Közigzagatási államtitkár"
+        jobTitle:
+          description: Job title of the Government Representative
+          type: string
+          example: "Miniszterelnökséget vezető miniszter"
+        address:
+          description: Address of the Agency
+          type: string
+          example: "2011 Budakalász, Gerinc utca hrsz. 2287/3"
+        country:
+          description: country of the Agency
+          type: string
+          example: "Magyarország"
+        note:
+          description: Any extra, useful information
+          type: string
+          example: 'Főosztály megnevezése: '
+        secretNote:
+          description: Secret note that is only visible for the Managers
+          example: 'Secret message'
+
+    PreviousJobTitleTranslationModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        languageShortName:
+          type: string
+
     GovernmentAdminModel:
       type: object
       properties:
@@ -289,6 +402,25 @@ components:
           format: int64
         name:
           type: string
+        languageShortName:
+          type: string
+        governmentId:
+          type: integer
+          format: int64
+
+    GovernmentTranslationModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        language_short_name:
+          type: string
+        name:
+          type: string
+        governmentId:
+          type: integer
+          format: int64
 
     Availability:
       type: string
@@ -306,4 +438,17 @@ components:
         shortName:
           type: string
         name:
+          type: string
+
+    MenuTranslationModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        languageShortName:
+          type: string
+        translationKey:
+          type: string
+        translationValue:
           type: string

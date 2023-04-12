@@ -6,9 +6,9 @@ import {
 
 import {
   Availability, GovernmentAdminModel,
-  GovernmentRepresentativeService, GovernmentService
+  GovernmentRepresentativeService, GovernmentService, GovernmentTranslationModel, MenuService, MenuTranslationModel
 } from '../../../../../build/openapi/government-service';
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 
 @Component({
   selector: 'app-representative-list',
@@ -19,23 +19,59 @@ import {Observable} from "rxjs";
 export class RepresentativeListComponent implements OnInit {
   representatives: SanitizedRepresentativeAdminModel[] = [];
   currentLanguage: string;
-  governments$: Observable<GovernmentAdminModel[]> = this.governmentService.renderAllGovernments();
+  governments$: Observable<GovernmentTranslationModel[]>;
   currentGovernmentId?: number;
+  public allTranslation?: string;
+  public modifyButton?: string;
+  public deleteButton?: string;
 
   constructor(
     private readonly representativeService: GovernmentRepresentativeService,
     private readonly governmentService: GovernmentService,
+    readonly menuService: MenuService,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router
+
   ) {
     // Initialize currentLanguage to the language stored in local storage, or to 'hu' if it's not set yet
     this.currentLanguage = window.localStorage.getItem('lang') || 'hu';
+    // Update governments$ to only fetch governments for the current language
+    this.governments$ = this.governmentService.renderAllGovernments(this.currentLanguage).pipe(
+        map(governments => governments.filter(government => government.language_short_name === this.currentLanguage))
+    );
   }
 
-
   ngOnInit(): void {
+    this.getMenuTranslation();
     this.listRepresentatives();
+  }
+
+  public getMenuTranslation() {
+    this.menuService.renderAllMenuTranslations(this.currentLanguage, 'all')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this["allTranslation"] = data[0].translationValue!;
+        } else {
+          this.allTranslation = 'All'; // Or any default value you choose
+        }
+      });
+    this.menuService.renderAllMenuTranslations(this.currentLanguage, 'modify_button')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.modifyButton = data[0].translationValue!;
+        } else {
+          this.modifyButton = 'Modify'; // Or any default value you choose
+        }
+      });
+    this.menuService.renderAllMenuTranslations(this.currentLanguage, 'delete_button')
+      .subscribe((data: MenuTranslationModel[]) => {
+        if (data.length > 0) {
+          this.deleteButton = data[0].translationValue!;
+        } else {
+          this.deleteButton = 'Delete'; // Or any default value you choose
+        }
+      });
   }
 
   changeLang(lang: string): void {
@@ -69,13 +105,22 @@ export class RepresentativeListComponent implements OnInit {
   }
 
   private listAllRepresentatives() {
-    this.representativeService.renderAllRepresentatives(this.currentLanguage!).subscribe((data) => {
+    this.representativeService.renderAllRepresentatives(this.currentLanguage!).subscribe(
+      (data) => {
       this.representatives = data.map((representative) => {
         console.log("Representatives: " + JSON.stringify(representative));
         const government = representative.government;
+        const reprTranslation = representative.representativeTranslation;
         return {
           ...representative,
+          name: reprTranslation? reprTranslation.name: '',
+          address: reprTranslation? reprTranslation.address: '',
+          country: reprTranslation? reprTranslation.country: '',
+          jobTitle: reprTranslation? reprTranslation.jobTitle: '',
+          note: reprTranslation? reprTranslation.note: '',
+          secretNote: reprTranslation? reprTranslation.secretNote: '',
           governmentName: government ? government.name : '',
+          secretairat: reprTranslation? reprTranslation.secretairat: '',
           image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
         };
       });
@@ -87,13 +132,22 @@ export class RepresentativeListComponent implements OnInit {
     this.currentLanguage = currentLanguage;
     this.representativeService
       .findByGovernmentId(this.currentGovernmentId, this.currentLanguage)
-      .subscribe((data) => {
+      .subscribe(
+        (data) => {
         this.representatives = data.map((representative) => {
           console.log("Representatives: " + JSON.stringify(representative));
           const government = representative.government;
+          const reprTranslation = representative.representativeTranslation;
           return {
             ...representative,
+            name: reprTranslation? reprTranslation.name: '',
+            address: reprTranslation? reprTranslation.address: '',
+            country: reprTranslation? reprTranslation.country: '',
+            jobTitle: reprTranslation? reprTranslation.jobTitle: '',
+            note: reprTranslation? reprTranslation.note: '',
+            secretNote: reprTranslation? reprTranslation.secretNote: '',
             governmentName: government ? government.name : '',
+            secretairat: reprTranslation? reprTranslation.secretairat: '',
             image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
           };
         });
@@ -104,16 +158,17 @@ export class RepresentativeListComponent implements OnInit {
   interface SanitizedRepresentativeAdminModel {
   id?: string;
   name?: string;
-  lang?: string;
   email?: string;
   phoneNumber?: string;
   address?: string;
+  country?: string,
   image: SafeUrl;
   jobTitle?: string;
   note?: string;
   availability?: Availability;
   governmentName?: string;
   secretairat?: string;
+  secretNote?: string;
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;

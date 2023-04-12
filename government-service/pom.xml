@@ -81,16 +81,15 @@
         </dependency>
 
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.csaba79coder</groupId>
             <artifactId>api-contract</artifactId>
             <version>3.0.2</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>10.1.7</version>
         </dependency>
 
     </dependencies>
@@ -111,6 +110,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                     <mainClass>com.csaba79coder.bestprotocol.BestProtocolApplication</mainClass>
                 </configuration>
                 <executions>
