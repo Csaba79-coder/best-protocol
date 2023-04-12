@@ -21,7 +21,7 @@
                  routerLinkActive="active-link">
                 {{ government.name }}
               </a>-->
-              <a [routerLink]="['/', currentLanguage, 'api', 'admin', 'gov-representatives', 'governments', government?.id]"
+              <a [routerLink]="['/', currentLanguage, 'api', 'admin', 'gov-representatives', 'governments', government?.governmentId]"
                  routerLinkActive="active-link"
                  [queryParamsHandling]="'merge'">
                 {{ government.name }}
@@ -46,6 +46,9 @@
             <div class="price">
               {{ tempRepresentative.jobTitle }}
             </div>
+            <div class="secret">
+              {{ tempRepresentative.secretNote }}
+            </div>
             <div class="description">
               {{ tempRepresentative.governmentName }}
             </div>
@@ -60,6 +63,9 @@
             </div>
             <div class="description">
               {{ tempRepresentative.address }}
+            </div>
+            <div class="description">
+              {{ tempRepresentative.country }}
             </div>
             <div class="description">
               {{ tempRepresentative.note }}

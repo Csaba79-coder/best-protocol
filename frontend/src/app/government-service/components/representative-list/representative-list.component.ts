@@ -73,13 +73,22 @@ export class RepresentativeListComponent implements OnInit {
   }
 
   private listAllRepresentatives() {
-    this.representativeService.renderAllRepresentatives(this.currentLanguage!).subscribe((data) => {
+    this.representativeService.renderAllRepresentatives(this.currentLanguage!).subscribe(
+      (data) => {
       this.representatives = data.map((representative) => {
         console.log("Representatives: " + JSON.stringify(representative));
         const government = representative.government;
+        const reprTranslation = representative.representativeTranslation;
         return {
           ...representative,
+          name: reprTranslation? reprTranslation.name: '',
+          address: reprTranslation? reprTranslation.address: '',
+          country: reprTranslation? reprTranslation.country: '',
+          jobTitle: reprTranslation? reprTranslation.jobTitle: '',
+          note: reprTranslation? reprTranslation.note: '',
+          secretNote: reprTranslation? reprTranslation.secretNote: '',
           governmentName: government ? government.name : '',
+          secretairat: reprTranslation? reprTranslation.secretairat: '',
           image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
         };
       });
@@ -91,13 +100,22 @@ export class RepresentativeListComponent implements OnInit {
     this.currentLanguage = currentLanguage;
     this.representativeService
       .findByGovernmentId(this.currentGovernmentId, this.currentLanguage)
-      .subscribe((data) => {
+      .subscribe(
+        (data) => {
         this.representatives = data.map((representative) => {
           console.log("Representatives: " + JSON.stringify(representative));
           const government = representative.government;
+          const reprTranslation = representative.representativeTranslation;
           return {
             ...representative,
+            name: reprTranslation? reprTranslation.name: '',
+            address: reprTranslation? reprTranslation.address: '',
+            country: reprTranslation? reprTranslation.country: '',
+            jobTitle: reprTranslation? reprTranslation.jobTitle: '',
+            note: reprTranslation? reprTranslation.note: '',
+            secretNote: reprTranslation? reprTranslation.secretNote: '',
             governmentName: government ? government.name : '',
+            secretairat: reprTranslation? reprTranslation.secretairat: '',
             image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
           };
         });
@@ -108,16 +126,17 @@ export class RepresentativeListComponent implements OnInit {
   interface SanitizedRepresentativeAdminModel {
   id?: string;
   name?: string;
-  lang?: string;
   email?: string;
   phoneNumber?: string;
   address?: string;
+  country?: string,
   image: SafeUrl;
   jobTitle?: string;
   note?: string;
   availability?: Availability;
   governmentName?: string;
   secretairat?: string;
+  secretNote?: string;
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string;
