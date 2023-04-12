@@ -63,11 +63,9 @@ public class RepresentativeService {
     }
 
     private RepresentativeAdminModel getRepresentativeWithTranslation(UUID representativeId, String languageShortName) {
-        // TODO previous job title list!
         Representative currentRepresentative = representativeRepository.findById(representativeId).orElseThrow(() -> new NoSuchElementException("Representative not found"));
         GovernmentTranslation governmentTranslation = governmentTranslationRepository.findByGovernmentIdAndLanguageShortName(currentRepresentative.getGovernment().getId(), languageShortName);
         RepresentativeTranslation currentTranslation = representativeTranslationRepository.findRepresentativeTranslationByLanguageShortNameAndRepresentativeId(languageShortName, currentRepresentative.getId());
-
         if (currentTranslation != null) {
             RepresentativeTranslationManagerModel model = new RepresentativeTranslationManagerModel();
             model.setId(currentTranslation.getId());
@@ -108,6 +106,7 @@ public class RepresentativeService {
                     .updatedAt(String.valueOf(currentRepresentative.getUpdatedAt()))
                     .createdBy(currentRepresentative.getCreatedBy())
                     .updatedBy(currentRepresentative.getUpdatedBy())
+                    .government(Mapper.mapGovernmentTranslationToAdminModel(governmentTranslation))
                     .phoneNumber(currentRepresentative.getPhoneNumber())
                     .email(currentRepresentative.getEmail())
                     .image(ImageUtil.decompressImage(currentRepresentative.getImage()))
