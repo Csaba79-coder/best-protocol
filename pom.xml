@@ -18,6 +18,7 @@
     <modules>
         <module>api-contract</module>
         <module>government-service</module>
+        <module>discovery-server</module>
     </modules>
 
     <properties>
@@ -27,6 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.version>2.3.0-SNAPSHOT</project.version>
+        <spring-cloud.version>2022.0.2</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
@@ -35,6 +37,13 @@
                 <groupId>com.csaba79coder</groupId>
                 <artifactId>best-protocol</artifactId>
                 <version>3.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
