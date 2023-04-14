@@ -91,4 +91,5 @@ bin/
 /api-contract/target/
 /government-service/target/
 /discovery-server/target/
+/api-gateway/target/
 /frontend/build/

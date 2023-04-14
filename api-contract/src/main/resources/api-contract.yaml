@@ -209,7 +209,7 @@ paths:
               description: Expiration date header
               schema:
                 type: string
-  /{languageShortName}/api/admin/menu:
+  /{languageShortName}/api/admin/governments/menu:
     get:
       tags:
         - menu
