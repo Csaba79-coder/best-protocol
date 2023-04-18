@@ -43,7 +43,6 @@ export class RepresentativeListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-
     private cdr: ChangeDetectorRef
   ) {
     // Initialize currentLanguage to the language stored in local storage, or to 'hu' if it's not set yet
@@ -73,11 +72,6 @@ export class RepresentativeListComponent implements OnInit {
 
     this.cdr.detectChanges();
   }
-  /*ngOnInit(): void {
-    this.getMenuTranslation();
-    this.listRepresentatives();
-    this.cdr.detectChanges();
-  }*/
 
   changeLang(lang: string): void {
     // Set currentLanguage to the selected language
@@ -123,28 +117,6 @@ export class RepresentativeListComponent implements OnInit {
     });
   }
 
-  /*changeLang(lang: string): void {
-  // Set currentLanguage to the selected language
-  this.currentLanguage = lang;
-  // Save currentLanguage to local storage
-  window.localStorage.setItem('lang', lang);
-  // Update the URL with the new language
-  const url = this.router.url;
-  const updatedUrl = url.split('/').map(segment => {
-    if (segment === 'hu' || segment === 'en' || segment === 'il') {
-      return lang;
-    }
-    return segment;
-  }).join('/');
-  this.router.navigateByUrl(updatedUrl);
-  // Update the displayed data
-  this.listRepresentatives();
-  this.getMenuTranslation();
-  this.governmentList();
-  this.cdr.detectChanges();
-  // window.location.reload();
-}*/
-
   onSearch(): void {
     console.log('Search query:', this.searchQuery);
     this.updateSearchQuery(this.searchQuery);
@@ -171,7 +143,7 @@ export class RepresentativeListComponent implements OnInit {
     });
   }
 
-  private listAllRepresentatives(searchQuery?: string) {
+  private listAllRepresentatives(searchQuery?: string, governmentId?: string) {
     this.representativeService.renderAllRepresentatives(this.currentLanguage!, searchQuery!).subscribe(
       (data) => {
         this.representatives = data.map(
@@ -196,16 +168,38 @@ export class RepresentativeListComponent implements OnInit {
             !this.currentGovernmentId || repr.government?.id === this.currentGovernmentId
           )
           .filter(repr =>
-            !searchQuery ||
-            repr.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            repr.address?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            repr.country?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            repr.jobTitle?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            repr.note?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            repr.secretNote?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            repr.secretairat?.toLowerCase().includes(searchQuery.toLowerCase())
+            (!searchQuery || this.entityMatchesSearchCriteria(repr, searchQuery)) // filter by searchQuery if provided
           );
       });
+  }
+
+  private entityMatchesSearchCriteria(model: any, search: string): boolean {
+    const lowercaseSearch = search.toLowerCase();
+    if (model.governmentName && model.governmentName.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    if (model.name && model.name.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    if (model.address && model.address.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    if (model.country && model.country.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    if (model.jobTitle && model.jobTitle.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    if (model.note && model.note.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    if (model.secretNote && model.secretNote.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    if (model.secretairat && model.secretairat.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    return false;
   }
 
   private listRepresentativesByGovId(currentLanguage: string, governmentId: number) {
