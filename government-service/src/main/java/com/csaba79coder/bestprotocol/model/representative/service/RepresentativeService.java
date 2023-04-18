@@ -52,11 +52,20 @@ public class RepresentativeService {
         return representativeAdminModels;
     }
 
-    public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(String languageShortName, Long governmentId) {
-        return representativeRepository.findRepresentativeByGovernmentId(governmentId)
+    public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(String languageShortName, Long governmentId, String search) {
+        List<RepresentativeAdminModel> representativeAdminModels = representativeRepository.findRepresentativeByGovernmentId(governmentId)
                 .stream()
                 .map(representative -> getRepresentativeWithTranslation(representative.getId(), languageShortName))
                 .collect(Collectors.toList());
+
+        if (search != null && !search.trim().isEmpty()) {
+            String lowercaseSearch = search.trim().toLowerCase();
+            representativeAdminModels = representativeAdminModels.stream()
+                    .filter(model -> entityMatchesSearchCriteria(model, lowercaseSearch))
+                    .collect(Collectors.toList());
+        }
+
+        return representativeAdminModels;
     }
 
     private RepresentativeAdminModel getRepresentativeWithTranslation(UUID representativeId, String languageShortName) {
@@ -166,57 +175,4 @@ public class RepresentativeService {
         }
         return false;
     }
-    /*private boolean entityMatchesSearchCriteria(RepresentativeAdminModel model, String search) {
-        String lowercaseSearch = search.toLowerCase();
-        List<PreviousJobTitleTranslationModel> previousJobTitles = model.getPreviousJobTitle();
-        if (previousJobTitles == null) {
-            return false;
-        }
-        RepresentativeTranslationManagerModel translation = model.getRepresentativeTranslation();
-        if (translation == null) {
-            return false;
-        }
-        return previousJobTitles.stream()
-                .anyMatch(jobTitle -> jobTitle.getName().toLowerCase().contains(lowercaseSearch))
-                || model.getPhoneNumber().toLowerCase().contains(lowercaseSearch)
-                || model.getEmail().toLowerCase().contains(lowercaseSearch)
-                || model.getGovernment().getName().toLowerCase().contains(lowercaseSearch)
-                || translation.getName().toLowerCase().contains(lowercaseSearch)
-                || translation.getAddress().toLowerCase().contains(lowercaseSearch)
-                || translation.getCountry().toLowerCase().contains(lowercaseSearch)
-                || translation.getNote().toLowerCase().contains(lowercaseSearch)
-                || translation.getSecretairat().toLowerCase().contains(lowercaseSearch)
-                || translation.getJobTitle().toLowerCase().contains(lowercaseSearch)
-                || translation.getSecretNote().toLowerCase().contains(lowercaseSearch);
-    }*/
-
-    /*private  boolean entityMatchesSearchCriteria(RepresentativeAdminModel model, String search) {
-        String lowercaseSearch = search.toLowerCase();
-        List<PreviousJobTitleTranslationModel> previousJobTitles = model.getPreviousJobTitle();
-        if (previousJobTitles == null) {
-            return false;
-        }
-        RepresentativeTranslationManagerModel translation = model.getRepresentativeTranslation();
-        if (Objects.nonNull(translation) && Objects.nonNull(translation.getName()) && translation.getName().toLowerCase().contains(lowercaseSearch)
-                && Objects.nonNull(translation.getAddress()) && translation.getAddress().toLowerCase().contains(lowercaseSearch)
-                && Objects.nonNull(translation.getCountry()) && translation.getCountry().toLowerCase().contains(lowercaseSearch)
-                && Objects.nonNull(translation.getNote()) && translation.getNote().toLowerCase().contains(lowercaseSearch)
-                && Objects.nonNull(translation.getSecretairat()) && translation.getSecretairat().toLowerCase().contains(lowercaseSearch)
-                && Objects.nonNull(translation.getJobTitle()) && translation.getJobTitle().toLowerCase().contains(lowercaseSearch)
-                && Objects.nonNull(translation.getSecretNote()) && translation.getSecretNote().toLowerCase().contains(lowercaseSearch)) {
-            return true;
-        } else {
-            return previousJobTitles.stream()
-                    .anyMatch(jobTitle -> jobTitle.getName().toLowerCase().contains(lowercaseSearch))
-                    || model.getPhoneNumber().toLowerCase().contains(lowercaseSearch)
-                    || model.getEmail().toLowerCase().contains(lowercaseSearch)
-                    || model.getGovernment().getName().toLowerCase().contains(lowercaseSearch)
-                    || model.getRepresentativeTranslation().getName().toLowerCase().contains(lowercaseSearch)
-                    || model.getRepresentativeTranslation().getAddress().toLowerCase().contains(lowercaseSearch)
-                    || model.getRepresentativeTranslation().getCountry().toLowerCase().contains(lowercaseSearch)
-                    || model.getRepresentativeTranslation().getNote().toLowerCase().contains(lowercaseSearch)
-                    || model.getRepresentativeTranslation().getSecretairat().toLowerCase().contains(lowercaseSearch)
-                    || model.getRepresentativeTranslation().getJobTitle().toLowerCase().contains(lowercaseSearch)
-                    || model.getRepresentativeTranslation().getSecretNote().toLowerCase().contains(lowercaseSearch);
-        }*/
 }
