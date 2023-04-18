@@ -34,7 +34,7 @@ public class RepresentativeController implements GovernmentRepresentativeApi {
     }
 
     @Override
-    public ResponseEntity<List<RepresentativeAdminModel>> renderAllRepresentatives(String languageShortName) {
-        return ResponseEntity.status(200).body(representativeService.renderAllRepresentatives(languageShortName));
+    public ResponseEntity<List<RepresentativeAdminModel>> renderAllRepresentatives(String languageShortName, String search) {
+        return ResponseEntity.status(200).body(representativeService.renderAllRepresentatives(languageShortName, search));
     }
 }

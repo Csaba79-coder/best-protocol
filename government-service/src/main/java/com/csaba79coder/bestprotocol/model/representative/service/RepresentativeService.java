@@ -38,21 +38,38 @@ public class RepresentativeService {
         return Mapper.mapRepresentativeEntityToAdminModel(representativeRepository.save(Mapper.mapFieldIntoEntity(languageShortName, name, jobTitle, government, secretairat, address, phoneNumber, email, image, note)));
     }
 
-    public List<RepresentativeAdminModel> renderAllRepresentatives(String languageShortName) {
-        return representativeRepository.findAll()
+    public List<RepresentativeAdminModel> renderAllRepresentatives(String languageShortName, String search) {
+        List<RepresentativeAdminModel> representativeAdminModels = representativeRepository.findAll()
                 .stream()
                 .map(representative -> getRepresentativeWithTranslation(representative.getId(), languageShortName))
-                .collect(Collectors.toList());
+                .toList();
+        if (search != null && !search.trim().isEmpty() && !search.trim().isBlank()) {
+            String lowercaseSearch = search.toLowerCase();
+            representativeAdminModels = representativeAdminModels.stream()
+                    .filter(model -> entityMatchesSearchCriteria(model, lowercaseSearch))
+                    .collect(Collectors.toList());
+        }
+        return representativeAdminModels;
     }
 
-    public Government findGovernmentByName(String government) {
-        return governmentTranslationRepository.findGovernmentByNameContainsIgnoreCase(government)
-                .map(GovernmentTranslation::getGovernment)
-                .orElseThrow(() -> {
-                    String message = String.format("Government: %s was not found", government);
-                    log.info(message);
-                    return new NoSuchElementException(message);
-                });
+    private  boolean entityMatchesSearchCriteria(RepresentativeAdminModel model, String search) {
+        String lowercaseSearch = search.toLowerCase();
+        List<PreviousJobTitleTranslationModel> previousJobTitles = model.getPreviousJobTitle();
+        if (previousJobTitles == null) {
+            return false;
+        }
+        return previousJobTitles.stream()
+                .anyMatch(jobTitle -> jobTitle.getName().toLowerCase().contains(lowercaseSearch))
+                || model.getPhoneNumber().toLowerCase().contains(lowercaseSearch)
+                || model.getEmail().toLowerCase().contains(lowercaseSearch)
+                || model.getGovernment().getName().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getName().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getAddress().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getCountry().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getNote().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getSecretairat().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getJobTitle().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getSecretNote().toLowerCase().contains(lowercaseSearch);
     }
 
     public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(String languageShortName, Long governmentId) {
@@ -112,5 +129,15 @@ public class RepresentativeService {
                     .image(ImageUtil.decompressImage(currentRepresentative.getImage()))
                     .availability(Availability.valueOf(currentRepresentative.getAvailability().name()));
         }
+    }
+
+    public Government findGovernmentByName(String government) {
+        return governmentTranslationRepository.findGovernmentByNameContainsIgnoreCase(government)
+                .map(GovernmentTranslation::getGovernment)
+                .orElseThrow(() -> {
+                    String message = String.format("Government: %s was not found", government);
+                    log.info(message);
+                    return new NoSuchElementException(message);
+                });
     }
 }

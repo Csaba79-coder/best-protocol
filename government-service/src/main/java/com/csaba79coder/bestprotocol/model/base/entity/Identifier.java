@@ -16,5 +16,5 @@ public class Identifier {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    protected UUID id = UUID.randomUUID();
+    private UUID id;
 }
