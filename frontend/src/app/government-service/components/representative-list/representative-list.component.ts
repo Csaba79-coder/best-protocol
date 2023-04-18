@@ -57,8 +57,27 @@ export class RepresentativeListComponent implements OnInit {
   ngOnInit(): void {
     this.getMenuTranslation();
     this.listRepresentatives();
+
+    this.activatedRoute.paramMap.subscribe(paramMap => {
+      const languageShortName = paramMap.get('languageShortName');
+      this.governmentService.renderAllGovernments(languageShortName!).subscribe(
+        (response) => {
+          // filter governments by languageShortName
+          this.governments = response.filter(government => government.language_short_name === languageShortName);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    });
+
     this.cdr.detectChanges();
   }
+  /*ngOnInit(): void {
+    this.getMenuTranslation();
+    this.listRepresentatives();
+    this.cdr.detectChanges();
+  }*/
 
   changeLang(lang: string): void {
     // Set currentLanguage to the selected language
@@ -77,8 +96,16 @@ export class RepresentativeListComponent implements OnInit {
     // Update the displayed data
     this.listRepresentatives();
     this.getMenuTranslation();
-    this.governmentList();
-    // window.location.reload();
+
+    // Update governments$ to only fetch governments for the current language
+    this.governments$ = this.governmentService.renderAllGovernments(this.currentLanguage).pipe(
+      map(governments => governments.filter(government => government.language_short_name === this.currentLanguage))
+    );
+
+    // Update the governments array after the governments$ observable emits new governments
+    this.governments$.subscribe(governments => {
+      this.governments = governments;
+    });
   }
 
   private governmentList() {
@@ -96,6 +123,28 @@ export class RepresentativeListComponent implements OnInit {
     });
   }
 
+  /*changeLang(lang: string): void {
+  // Set currentLanguage to the selected language
+  this.currentLanguage = lang;
+  // Save currentLanguage to local storage
+  window.localStorage.setItem('lang', lang);
+  // Update the URL with the new language
+  const url = this.router.url;
+  const updatedUrl = url.split('/').map(segment => {
+    if (segment === 'hu' || segment === 'en' || segment === 'il') {
+      return lang;
+    }
+    return segment;
+  }).join('/');
+  this.router.navigateByUrl(updatedUrl);
+  // Update the displayed data
+  this.listRepresentatives();
+  this.getMenuTranslation();
+  this.governmentList();
+  this.cdr.detectChanges();
+  // window.location.reload();
+}*/
+
   onSearch(): void {
     console.log('Search query:', this.searchQuery);
     this.updateSearchQuery(this.searchQuery);
@@ -107,6 +156,7 @@ export class RepresentativeListComponent implements OnInit {
     this.listAllRepresentatives(this.searchQuery);
     const queryParams = {search: this.searchQuery};
     this.router.navigate([], {relativeTo: this.route, queryParams: queryParams});
+    this.governmentList();
   }
 
   private listRepresentatives() {
