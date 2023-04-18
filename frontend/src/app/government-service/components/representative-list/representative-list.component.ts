@@ -70,6 +70,16 @@ export class RepresentativeListComponent implements OnInit {
       );
     });
 
+    this.activatedRoute.queryParams.subscribe(queryParams => {
+      this.searchQuery = queryParams['search'];
+      this.listRepresentatives();
+    });
+
+    this.activatedRoute.params.subscribe(params => {
+      this.currentGovernmentId = params['governmentId'];
+      this.listRepresentatives();
+    });
+
     this.cdr.detectChanges();
   }
 
@@ -136,14 +146,14 @@ export class RepresentativeListComponent implements OnInit {
       const governmentId = params['governmentId'];
       if (governmentId) {
         this.currentGovernmentId = governmentId;
-        this.listRepresentativesByGovId(this.currentLanguage!, this.currentGovernmentId!);
+        this.listRepresentativesByGovId(this.currentGovernmentId!, this.searchQuery!);
       } else {
         this.listAllRepresentatives(this.searchQuery!);
       }
     });
   }
 
-  private listAllRepresentatives(searchQuery?: string, governmentId?: string) {
+  private listAllRepresentatives(searchQuery?: string) {
     this.representativeService.renderAllRepresentatives(this.currentLanguage!, searchQuery!).subscribe(
       (data) => {
         this.representatives = data.map(
@@ -171,6 +181,37 @@ export class RepresentativeListComponent implements OnInit {
             (!searchQuery || this.entityMatchesSearchCriteria(repr, searchQuery)) // filter by searchQuery if provided
           );
       });
+  }
+
+  private listRepresentativesByGovId(governmentId: number, searchQuery?: string) {
+    this.currentGovernmentId = governmentId;
+    this.representativeService
+      .findByGovernmentId(this.currentGovernmentId, this.currentLanguage)
+      .subscribe(
+        (data) => {
+          this.representatives = data.map(
+            (representative) => {
+              console.log("Representatives: " + JSON.stringify(representative));
+              const government = representative.government;
+              const reprTranslation = representative.representativeTranslation;
+              return {
+                ...representative,
+                name: reprTranslation ? reprTranslation.name : '',
+                address: reprTranslation ? reprTranslation.address : '',
+                country: reprTranslation ? reprTranslation.country : '',
+                jobTitle: reprTranslation ? reprTranslation.jobTitle : '',
+                note: reprTranslation ? reprTranslation.note : '',
+                secretNote: reprTranslation ? reprTranslation.secretNote : '',
+                governmentName: government ? government.name : '',
+                secretairat: reprTranslation ? reprTranslation.secretairat : '',
+                image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
+              };
+            })
+            .filter(repr =>
+              (!searchQuery || this.entityMatchesSearchCriteria(repr, searchQuery)) // filter by searchQuery if provided
+            )
+        });
+    this.cdr.detectChanges();
   }
 
   private entityMatchesSearchCriteria(model: any, search: string): boolean {
@@ -210,34 +251,6 @@ export class RepresentativeListComponent implements OnInit {
       return true;
     }
     return false;
-  }
-
-  private listRepresentativesByGovId(currentLanguage: string, governmentId: number) {
-    this.currentGovernmentId = governmentId;
-    this.currentLanguage = currentLanguage;
-    this.representativeService
-      .findByGovernmentId(this.currentGovernmentId, this.currentLanguage)
-      .subscribe(
-        (data) => {
-          this.representatives = data.map(
-            (representative) => {
-              console.log("Representatives: " + JSON.stringify(representative));
-              const government = representative.government;
-              const reprTranslation = representative.representativeTranslation;
-              return {
-                ...representative,
-                name: reprTranslation ? reprTranslation.name : '',
-                address: reprTranslation ? reprTranslation.address : '',
-                country: reprTranslation ? reprTranslation.country : '',
-                jobTitle: reprTranslation ? reprTranslation.jobTitle : '',
-                note: reprTranslation ? reprTranslation.note : '',
-                secretNote: reprTranslation ? reprTranslation.secretNote : '',
-                governmentName: government ? government.name : '',
-                secretairat: reprTranslation ? reprTranslation.secretairat : '',
-                image: this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${representative.image}`),
-              };
-            });
-        });
   }
 
   public getMenuTranslation() {
