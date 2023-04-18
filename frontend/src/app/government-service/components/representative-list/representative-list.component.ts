@@ -178,6 +178,16 @@ export class RepresentativeListComponent implements OnInit {
     if (model.governmentName && model.governmentName.toLowerCase().includes(lowercaseSearch)) {
       return true;
     }
+    if (model.email && model.email.toLowerCase().includes(lowercaseSearch)) {
+      return true;
+    }
+    // removes all hyphens from the phone number
+    if (model.phoneNumber) {
+      const phoneWithoutHyphens = model.phoneNumber.replace(/-/g, "");
+      if (phoneWithoutHyphens.includes(search)) {
+        return true;
+      }
+    }
     if (model.name && model.name.toLowerCase().includes(lowercaseSearch)) {
       return true;
     }

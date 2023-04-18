@@ -157,7 +157,8 @@ public class RepresentativeService {
                 }
             }
         }
-        if (model.getPhoneNumber() != null && model.getPhoneNumber().toLowerCase().contains(lowercaseSearch)) {
+        // removes all hyphens from the phone number
+        if (model.getPhoneNumber() != null && model.getPhoneNumber().replaceAll("-", "").toLowerCase().contains(lowercaseSearch)) {
             return true;
         }
         if (model.getEmail() != null && model.getEmail().toLowerCase().contains(lowercaseSearch)) {
