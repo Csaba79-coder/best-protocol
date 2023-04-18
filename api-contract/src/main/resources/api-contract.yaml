@@ -386,6 +386,7 @@ components:
           example: 'Főosztály megnevezése: '
         secretNote:
           description: Secret note that is only visible for the Managers
+          type: string
           example: 'Secret message'
 
     PreviousJobTitleTranslationModel:
