@@ -52,26 +52,6 @@ public class RepresentativeService {
         return representativeAdminModels;
     }
 
-    private  boolean entityMatchesSearchCriteria(RepresentativeAdminModel model, String search) {
-        String lowercaseSearch = search.toLowerCase();
-        List<PreviousJobTitleTranslationModel> previousJobTitles = model.getPreviousJobTitle();
-        if (previousJobTitles == null) {
-            return false;
-        }
-        return previousJobTitles.stream()
-                .anyMatch(jobTitle -> jobTitle.getName().toLowerCase().contains(lowercaseSearch))
-                || model.getPhoneNumber().toLowerCase().contains(lowercaseSearch)
-                || model.getEmail().toLowerCase().contains(lowercaseSearch)
-                || model.getGovernment().getName().toLowerCase().contains(lowercaseSearch)
-                || model.getRepresentativeTranslation().getName().toLowerCase().contains(lowercaseSearch)
-                || model.getRepresentativeTranslation().getAddress().toLowerCase().contains(lowercaseSearch)
-                || model.getRepresentativeTranslation().getCountry().toLowerCase().contains(lowercaseSearch)
-                || model.getRepresentativeTranslation().getNote().toLowerCase().contains(lowercaseSearch)
-                || model.getRepresentativeTranslation().getSecretairat().toLowerCase().contains(lowercaseSearch)
-                || model.getRepresentativeTranslation().getJobTitle().toLowerCase().contains(lowercaseSearch)
-                || model.getRepresentativeTranslation().getSecretNote().toLowerCase().contains(lowercaseSearch);
-    }
-
     public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(String languageShortName, Long governmentId) {
         return representativeRepository.findRepresentativeByGovernmentId(governmentId)
                 .stream()
@@ -139,5 +119,25 @@ public class RepresentativeService {
                     log.info(message);
                     return new NoSuchElementException(message);
                 });
+    }
+
+    private  boolean entityMatchesSearchCriteria(RepresentativeAdminModel model, String search) {
+        String lowercaseSearch = search.toLowerCase();
+        List<PreviousJobTitleTranslationModel> previousJobTitles = model.getPreviousJobTitle();
+        if (previousJobTitles == null) {
+            return false;
+        }
+        return previousJobTitles.stream()
+                .anyMatch(jobTitle -> jobTitle.getName().toLowerCase().contains(lowercaseSearch))
+                || model.getPhoneNumber().toLowerCase().contains(lowercaseSearch)
+                || model.getEmail().toLowerCase().contains(lowercaseSearch)
+                || model.getGovernment().getName().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getName().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getAddress().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getCountry().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getNote().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getSecretairat().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getJobTitle().toLowerCase().contains(lowercaseSearch)
+                || model.getRepresentativeTranslation().getSecretNote().toLowerCase().contains(lowercaseSearch);
     }
 }
