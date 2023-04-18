@@ -58,6 +58,11 @@ paths:
           required: true
           schema:
             type: string
+        - name: search
+          in: query
+          description: Search query string
+          schema:
+            type: string
       responses:
         '200':
           description: Successful operation
