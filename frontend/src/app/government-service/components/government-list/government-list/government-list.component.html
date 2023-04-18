@@ -1,17 +1,3 @@
 <aside class="menu-sidebar d-none d-lg-block">
-  <div class="logo">
-    <a href="#">
-      <img src="assets/images/bp-logo.png" alt="bp" class="img-responsive">
-    </a>
-  </div>
-  <div class="menu-sidebar-content js-scrollbar1">
-    <nav class="navbar-sidebar">
-      <ul class="list-unstyled navbar-list">
-        <a routerLink="/{{ languageShortName }}/api/admin/gov-representatives" routerLinkActive="active">Összes</a>
-        <li *ngFor="let government of governments">
-          <a routerLink="/{{ languageShortName }}/api/admin/gov-representatives/governments/{{ government.governmentId }}" routerLinkActive="active-link">{{ government.name }}</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+
 </aside>

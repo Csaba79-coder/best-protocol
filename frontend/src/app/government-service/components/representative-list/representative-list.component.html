@@ -5,6 +5,16 @@
     </a>
   </div>
   <div class="menu-sidebar-content js-scrollbar1">
+    <div class="menu-sidebar-content js-scrollbar1">
+      <nav class="navbar-sidebar">
+        <ul class="list-unstyled navbar-list">
+          <a routerLink="/{{ currentLanguage }}/api/admin/gov-representatives" routerLinkActive="active">{{ allTranslation || 'All' }}</a>
+          <li *ngFor="let government of governments">
+            <a routerLink="/{{ currentLanguage }}/api/admin/gov-representatives/governments/{{ government.governmentId }}" routerLinkActive="active-link">{{ government.name }}</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <nav class="navbar-sidebar">
       <ul class="list-unstyled navbar-list">
         <ul>
@@ -29,6 +39,39 @@
     </nav>
   </div>
 </aside>
+
+<!-- PAGE CONTAINER-->
+<div class="page-container">
+  <!-- HEADER DESKTOP-->
+  <header class="header-desktop">
+    <div class="section-content section-content-p30">
+      <div class="container-fluid">
+        <div class="header-wrap">
+          <form class="form-header" (submit)="onSearch()" method="GET">
+            <input class="au-input au-input-xl" name="search" type="text" [(ngModel)]="searchQuery" placeholder="{{searchPlaceholder}}">
+            <button class="au-btn-submit" type="submit">
+              {{ searchButton || 'Search' }}
+            </button>
+          </form>
+
+          <nav class="lang-container mb-4 mt-4">
+            <div class="row">
+              <div class="col-3">
+                <select class="custom-select" [(ngModel)]="currentLanguage" (change)="changeLang(currentLanguage)">
+                  <option value="hu">Magyar</option>
+                  <option value="en">English</option>
+                  <option value="il"> עברית</option>
+                </select>
+              </div>
+            </div>
+          </nav>
+
+        </div>
+        <div class="account-wrap"></div>
+      </div>
+    </div>
+  </header>
+  <!-- END HEADER DESKTOP-->
 
 <div class="main-content">
   <div class="section-content section-content-p30">
@@ -77,4 +120,14 @@
     </div>
   </div>
 </div>
+  <!-- END PAGE CONTAINER-->
 
+  <footer>
+    <ul>
+      <li><a href="#">{{ introductionMenu || 'Introduction' }}</a></li>
+      <li><a href="#">{{ contactMenu || 'Contact' }}</a></li>
+      <li><a href="#">{{ serviceMenu || 'Services' }}</a></li>
+      <li><a href="#">{{ questionMenu || 'Frequently asked questions' }}</a></li>
+    </ul>
+  </footer>
+</div>
