@@ -17,7 +17,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 class MapperTest {
 
-
     @Test
     @DisplayName("shouldMapRepresentativeEntityToAdminModel")
     void shouldMapRepresentativeEntityToAdminModel(){
@@ -66,10 +65,10 @@ class MapperTest {
         GovernmentAdminModel model = Mapper.mapGovernmentTranslationToAdminModel(translation);
 
         // Then
-        then(model).isNotNull();
         then(model.getLanguageShortName()).isEqualTo("en");
         then(model.getName()).isEqualTo("Ministry of Finance");
         then(model)
+                .isNotNull()
                 .isEqualTo(expectedModel);
     }
 
@@ -92,6 +91,7 @@ class MapperTest {
         then(model.getLanguageShortName()).isEqualTo("il");
         then(model.getName()).isEqualTo("מִשְׂרָד רֹאשׁ הַמֶּמְשָׁלָה");
         then(model)
+                .isNotNull()
                 .isEqualTo(expectedModel);
     }
     
