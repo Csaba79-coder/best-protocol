@@ -23,8 +23,8 @@ public class Mapper {
     // TODO adding secretairat field
 
     private static final ModelMapper modelMapper = new ModelMapper();
-    // private static RepresentativeService representativeService;
 
+    // TODO write test!
     public static Representative mapFieldIntoEntity(String languageShortName, String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
         Representative entity = new Representative();
         /*entity.setName(name);
@@ -55,6 +55,7 @@ public class Mapper {
         return entity;
     }
 
+    // Test done!
     public static RepresentativeAdminModel mapRepresentativeEntityToAdminModel(Representative entity) {
         return new RepresentativeAdminModel()
                 .id(entity.getId())
@@ -62,15 +63,9 @@ public class Mapper {
                 .updatedAt(String.valueOf(entity.getUpdatedAt()))
                 .createdBy(entity.getCreatedBy())
                 .updatedBy(entity.getUpdatedBy())
-                //.name(entity.getName())
-                //.jobTitle(entity.getJobTitle())
-                //.government(Mapper.mapGovernmentEntityToAdminModel(entity.getGovernment()))
-                //.secretairat(entity.getSecretairat())
-                //.address(entity.getAddress())
                 .phoneNumber(entity.getPhoneNumber())
                 .email(entity.getEmail())
                 .image(ImageUtil.decompressImage(entity.getImage()))
-                //.note(entity.getNote())
                 .availability(Availability.valueOf(entity.getAvailability().name()));
     }
 
@@ -86,18 +81,21 @@ public class Mapper {
         return model;
     }
 
+    // Test done!
     public static GovernmentAdminModel mapGovernmentTranslationToAdminModel(GovernmentTranslation translation) {
         GovernmentAdminModel model = new GovernmentAdminModel();
         modelMapper.map(translation, model);
         return model;
     }
 
+    // Test done!
     public static GovernmentTranslationModel mapGovernmentTranslationToGovernmentAdminModel(GovernmentTranslation translation) {
         GovernmentTranslationModel model = new GovernmentTranslationModel();
         modelMapper.map(translation, model);
         return model;
     }
 
+    // Test done!
     public static MenuTranslationModel mapMenuTranslationEntityToModel(MenuTranslation entity) {
         MenuTranslationModel model = new MenuTranslationModel();
         modelMapper.map(entity, model);
