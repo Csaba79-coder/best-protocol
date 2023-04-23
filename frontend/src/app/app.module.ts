@@ -32,7 +32,7 @@ const routes: Routes = [
     GovernmentListComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     BrowserModule,
     HttpClientModule,
     ApiModule,
