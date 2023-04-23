@@ -106,6 +106,7 @@ paths:
           required: true
           schema:
             type: string
+
         - name: search
           in: query
           description: Search query string
