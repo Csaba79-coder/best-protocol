@@ -6,7 +6,7 @@ info:
   contact:
     email: csabavadasz79@gmail.com
 servers:
-  - url: 'http://localhost:8080'
+  - url: 'https://csaba79coder.itps.hu'
 tags:
   - name: government-representative
   - name: government
