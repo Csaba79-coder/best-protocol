@@ -15,6 +15,14 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        /*Representative representativeSaved = representativeRepository.findById(UUID.fromString("04e55934-397a-4f61-8d74-d1ac4a89a280")).get();
+
+        Representative representative = new Representative();
+        representative.setEmail("finance-assistant@finance.org");
+        representative.setPhoneNumber("+36-...");
+        representative.setImage(representativeSaved.getImage());
+        representativeRepository.save(representative);*/
+
         /*RepresentativeTranslation translation = new RepresentativeTranslation();
         Optional<Representative> representative = representativeRepository.findById(UUID.fromString("04e55934-397a-4f61-8d74-d1ac4a89a280"));
         if (representative.isPresent()) {

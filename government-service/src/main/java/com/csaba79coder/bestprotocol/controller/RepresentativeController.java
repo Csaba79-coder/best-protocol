@@ -29,12 +29,12 @@ public class RepresentativeController implements GovernmentRepresentativeApi {
     }
 
     @Override
-    public ResponseEntity<List<RepresentativeAdminModel>> findByGovernmentId(Long governmentId, String languageShortName, Integer page, Integer size) {
-        return ResponseEntity.status(200).body(representativeService.renderAllRepresentativesByGovernmentId(languageShortName, governmentId));
+    public ResponseEntity<List<RepresentativeAdminModel>> findByGovernmentId(Long governmentId, String languageShortName, String search, Integer page, Integer size) {
+        return ResponseEntity.status(200).body(representativeService.renderAllRepresentativesByGovernmentId(languageShortName, governmentId, search));
     }
 
     @Override
-    public ResponseEntity<List<RepresentativeAdminModel>> renderAllRepresentatives(String languageShortName) {
-        return ResponseEntity.status(200).body(representativeService.renderAllRepresentatives(languageShortName));
+    public ResponseEntity<List<RepresentativeAdminModel>> renderAllRepresentatives(String languageShortName, String search) {
+        return ResponseEntity.status(200).body(representativeService.renderAllRepresentatives(languageShortName, search));
     }
 }

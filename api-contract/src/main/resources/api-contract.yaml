@@ -58,6 +58,11 @@ paths:
           required: true
           schema:
             type: string
+        - name: search
+          in: query
+          description: Search query string
+          schema:
+            type: string
       responses:
         '200':
           description: Successful operation
@@ -99,6 +104,12 @@ paths:
           in: path
           description: short name of selected language
           required: true
+          schema:
+            type: string
+
+        - name: search
+          in: query
+          description: Search query string
           schema:
             type: string
         - name: page
@@ -381,6 +392,7 @@ components:
           example: 'Főosztály megnevezése: '
         secretNote:
           description: Secret note that is only visible for the Managers
+          type: string
           example: 'Secret message'
 
     PreviousJobTitleTranslationModel:

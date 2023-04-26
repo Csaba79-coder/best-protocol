@@ -22,7 +22,10 @@ import java.util.Set;
 @Table(name = "government")
 public class Government extends IdentifierLong {
 
+    // https://kormany.hu/miniszteriumok
+
     @OneToMany(mappedBy = "government", cascade = CascadeType.ALL, orphanRemoval = true)
     // @OrderBy("name")
+    // @OrderBy("government.id")
     private Set<Representative> representatives = new HashSet<>();
 }

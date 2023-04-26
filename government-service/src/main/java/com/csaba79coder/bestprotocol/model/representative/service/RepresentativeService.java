@@ -38,28 +38,34 @@ public class RepresentativeService {
         return Mapper.mapRepresentativeEntityToAdminModel(representativeRepository.save(Mapper.mapFieldIntoEntity(languageShortName, name, jobTitle, government, secretairat, address, phoneNumber, email, image, note)));
     }
 
-    public List<RepresentativeAdminModel> renderAllRepresentatives(String languageShortName) {
-        return representativeRepository.findAll()
+    public List<RepresentativeAdminModel> renderAllRepresentatives(String languageShortName, String search) {
+        List<RepresentativeAdminModel> representativeAdminModels = representativeRepository.findAll()
+                .stream()
+                .map(representative -> getRepresentativeWithTranslation(representative.getId(), languageShortName))
+                .toList();
+        if (search != null && !search.trim().isEmpty() && !search.trim().isBlank()) {
+            String lowercaseSearch = search.toLowerCase();
+            representativeAdminModels = representativeAdminModels.stream()
+                    .filter(model -> entityMatchesSearchCriteria(model, lowercaseSearch))
+                    .collect(Collectors.toList());
+        }
+        return representativeAdminModels;
+    }
+
+    public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(String languageShortName, Long governmentId, String search) {
+        List<RepresentativeAdminModel> representativeAdminModels = representativeRepository.findRepresentativeByGovernmentId(governmentId)
                 .stream()
                 .map(representative -> getRepresentativeWithTranslation(representative.getId(), languageShortName))
                 .collect(Collectors.toList());
-    }
 
-    public Government findGovernmentByName(String government) {
-        return governmentTranslationRepository.findGovernmentByNameContainsIgnoreCase(government)
-                .map(GovernmentTranslation::getGovernment)
-                .orElseThrow(() -> {
-                    String message = String.format("Government: %s was not found", government);
-                    log.info(message);
-                    return new NoSuchElementException(message);
-                });
-    }
+        if (search != null && !search.trim().isEmpty()) {
+            String lowercaseSearch = search.trim().toLowerCase();
+            representativeAdminModels = representativeAdminModels.stream()
+                    .filter(model -> entityMatchesSearchCriteria(model, lowercaseSearch))
+                    .collect(Collectors.toList());
+        }
 
-    public List<RepresentativeAdminModel> renderAllRepresentativesByGovernmentId(String languageShortName, Long governmentId) {
-        return representativeRepository.findRepresentativeByGovernmentId(governmentId)
-                .stream()
-                .map(representative -> getRepresentativeWithTranslation(representative.getId(), languageShortName))
-                .collect(Collectors.toList());
+        return representativeAdminModels;
     }
 
     private RepresentativeAdminModel getRepresentativeWithTranslation(UUID representativeId, String languageShortName) {
@@ -112,5 +118,61 @@ public class RepresentativeService {
                     .image(ImageUtil.decompressImage(currentRepresentative.getImage()))
                     .availability(Availability.valueOf(currentRepresentative.getAvailability().name()));
         }
+    }
+
+    public Government findGovernmentByName(String government) {
+        return governmentTranslationRepository.findGovernmentByNameContainsIgnoreCase(government)
+                .map(GovernmentTranslation::getGovernment)
+                .orElseThrow(() -> {
+                    String message = String.format("Government: %s was not found", government);
+                    log.info(message);
+                    return new NoSuchElementException(message);
+                });
+    }
+
+    private boolean entityMatchesSearchCriteria(RepresentativeAdminModel model, String search) {
+        String lowercaseSearch = search.toLowerCase();
+        if (model.getGovernment() != null && model.getGovernment().getName() != null && model.getGovernment().getName().toLowerCase().contains(lowercaseSearch)) {
+            return true;
+        }
+        if (model.getRepresentativeTranslation() != null) {
+            RepresentativeTranslationManagerModel translation = model.getRepresentativeTranslation();
+            if (translation.getName() != null && translation.getName().toLowerCase().contains(lowercaseSearch)) {
+                return true;
+            }
+            if (translation.getAddress() != null && translation.getAddress().toLowerCase().contains(lowercaseSearch)) {
+                return true;
+            }
+            if (translation.getCountry() != null && translation.getCountry().toLowerCase().contains(lowercaseSearch)) {
+                return true;
+            }
+            if (translation.getNote() != null && translation.getNote().toLowerCase().contains(lowercaseSearch)) {
+                return true;
+            }
+            if (translation.getSecretairat() != null && translation.getSecretairat().toLowerCase().contains(lowercaseSearch)) {
+                return true;
+            }
+            if (translation.getJobTitle() != null && translation.getJobTitle().toLowerCase().contains(lowercaseSearch)) {
+                return true;
+            }
+            if (translation.getSecretNote() != null && translation.getSecretNote().toLowerCase().contains(lowercaseSearch)) {
+                return true;
+            }
+        }
+        if (model.getPreviousJobTitle() != null) {
+            for (PreviousJobTitleTranslationModel jobTitle : model.getPreviousJobTitle()) {
+                if (jobTitle != null && jobTitle.getName() != null && jobTitle.getName().toLowerCase().contains(lowercaseSearch)) {
+                    return true;
+                }
+            }
+        }
+        // removes all hyphens from the phone number
+        if (model.getPhoneNumber() != null && model.getPhoneNumber().replaceAll("-", "").toLowerCase().contains(lowercaseSearch)) {
+            return true;
+        }
+        if (model.getEmail() != null && model.getEmail().toLowerCase().contains(lowercaseSearch)) {
+            return true;
+        }
+        return false;
     }
 }
