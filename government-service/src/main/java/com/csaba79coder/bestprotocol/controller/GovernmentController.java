@@ -32,6 +32,7 @@ public class GovernmentController implements GovernmentApi {
      @return A ResponseEntity containing a list of GovernmentTranslationModel objects.
      HTTP status code of 200 (OK) if the request was successful.
      */
+    // tested
     @Override
     public ResponseEntity<List<GovernmentTranslationModel>> renderAllGovernments(String languageShortName) {
         return ResponseEntity.status(200).body(governmentService.findAllGovernmentsByLangAndGovernmentId(languageShortName));
@@ -44,6 +45,7 @@ public class GovernmentController implements GovernmentApi {
      @param governmentId The ID of the government to retrieve the translations for.
      @return A ResponseEntity containing a list of GovernmentTranslationModel objects and an HTTP status code of 200 (OK) if the request was successful.
      */
+    // tested
     @Override
     public ResponseEntity<List<GovernmentTranslationModel>> renderAllGovernmentsById(String languageShortName, Long governmentId) {
         return ResponseEntity.status(200).body(governmentService.findAllGovernmentsByLangAndGovernmentId(languageShortName, governmentId));

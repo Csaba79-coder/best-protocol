@@ -52,7 +52,7 @@ public class GovernmentService {
                 .collect(Collectors.toList());
     }
 
-    // TODO not in usage at the moment, need it for later!
+    // not in usage at the moment, need it for later!
     /**
 
      Returns the {@link GovernmentTranslation} object with the given ID, or throws a {@link NoSuchElementException} if no
