@@ -9,6 +9,13 @@ import lombok.Getter;
 
 import java.util.UUID;
 
+/**
+ * A base class for entities that have an ID field. This class provides a unique ID field which is generated using the
+ * UUID strategy.
+ *
+ * This class is annotated with @MappedSuperclass which means that the properties of this class will be mapped to the
+ * properties of its subclasses.
+ */
 @MappedSuperclass
 @Getter
 public class Identifier {

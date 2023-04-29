@@ -4,8 +4,18 @@ import java.io.ByteArrayOutputStream;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+/**
+
+ A utility class for compressing and decompressing images using the Deflater and Inflater classes.
+ */
 public class ImageUtil {
 
+    /**
+     * Compresses the given input data using the Deflater class and returns the compressed data as a new byte array.
+     *
+     * @param data the input byte array to compress
+     * @return a new byte array containing the compressed data
+     */
     public static byte[] compressImage(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setLevel(Deflater.BEST_COMPRESSION);
@@ -25,6 +35,12 @@ public class ImageUtil {
         return outputStream.toByteArray();
     }
 
+    /**
+     * Decompresses the given input data using the Inflater class and returns the decompressed data as a new byte array.
+     *
+     * @param data the input byte array to decompress
+     * @return a new byte array containing the decompressed data
+     */
      public static byte[] decompressImage(byte[] data) {
         Inflater inflater = new Inflater();
         inflater.setInput(data);
@@ -41,6 +57,7 @@ public class ImageUtil {
         return outputStream.toByteArray();
     }
 
+    // as all the methods are static, I don't need to instantiate this class! to achieve this, I need to make the constructor private
     private ImageUtil() {
 
     }
