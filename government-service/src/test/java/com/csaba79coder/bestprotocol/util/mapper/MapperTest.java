@@ -15,8 +15,20 @@ import java.util.UUID;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+/**
+ * This class contains JUnit test cases for the Mapper class that is responsible for mapping various entity objects to
+ * their respective models. The tests in this class verify that the Mapper class correctly maps entities to their expected
+ * models.
+ */
 class MapperTest {
 
+    /**
+     * This test case verifies that the {@link Mapper#mapRepresentativeEntityToAdminModel} method correctly maps a
+     * Representative entity object to its expected RepresentativeAdminModel. It creates a Representative entity object and sets
+     * its properties with test data, then creates a RepresentativeAdminModel object with the same test data and sets its
+     * properties as expected. It then calls the Mapper's mapRepresentativeEntityToAdminModel method and verifies that the
+     * resulting model is not null and matches the expected model.
+     */
     @Test
     @DisplayName("shouldMapRepresentativeEntityToAdminModel")
     void shouldMapRepresentativeEntityToAdminModel(){
@@ -50,6 +62,13 @@ class MapperTest {
                 .isEqualTo(expectedModel);
     }
 
+    /**
+     * This test case verifies that the {@link Mapper#mapGovernmentTranslationToAdminModel} method correctly maps a
+     * GovernmentTranslation entity object to its expected GovernmentAdminModel. It creates a GovernmentTranslation entity
+     * object and sets its properties with test data, then creates a GovernmentAdminModel object with the same test data and
+     * sets its properties as expected. It then calls the Mapper's mapGovernmentTranslationToAdminModel method and verifies
+     * that the resulting model is not null and matches the expected model.
+     */
     @Test
     @DisplayName("shouldMapGovernmentTranslationToAdminModel")
     void shouldMapGovernmentTranslationToAdminModel(){
@@ -72,6 +91,24 @@ class MapperTest {
                 .isEqualTo(expectedModel);
     }
 
+    /**
+
+     Test case for the {@link Mapper#mapGovernmentTranslationToGovernmentAdminModel(GovernmentTranslation)}
+
+     method, which should map a {@link GovernmentTranslation} entity to a {@link GovernmentTranslationModel}
+
+     with the same language short name and name properties.
+
+     The test creates a sample {@link GovernmentTranslation} entity and a {@link GovernmentTranslationModel}
+
+     with the expected properties, and passes the entity to the mapper method. The resulting model is then
+
+     compared to the expected model using assertions from the AssertJ library.
+
+     If the mapping is correct, the resulting model should have the same language short name and name properties
+
+     as the original entity, and all other properties should be null or default.
+     */
     @Test
     @DisplayName("shouldMapGovernmentTranslationToGovernmentTranslationModel")
     void shouldMapGovernmentTranslationToGovernmentTranslationModel(){
@@ -94,8 +131,14 @@ class MapperTest {
                 .isNotNull()
                 .isEqualTo(expectedModel);
     }
-    
-    // testMapMenuTranslationEntityToModel()
+
+    /**
+     * This test case verifies that the {@link Mapper#mapMenuTranslationEntityToModel} method correctly maps a MenuTranslation
+     * entity object to its expected MenuTranslationModel. It creates a MenuTranslation entity object and sets its properties
+     * with test data, then creates a MenuTranslationModel object with the same test data and sets its properties as expected.
+     * It then calls the Mapper's mapMenuTranslationEntityToModel method and verifies that the resulting model is not null
+     * and matches the expected model.
+     */
     @Test
     @DisplayName("testMapMenuTranslationEntityToModel")
     void testMapMenuTranslationEntityToModel(){
