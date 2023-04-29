@@ -77,19 +77,19 @@ class MapperTest {
     void shouldMapGovernmentTranslationToGovernmentTranslationModel(){
         // Given
         GovernmentTranslation translation = new GovernmentTranslation();
-        translation.setLanguageShortName("il");
-        translation.setName("מִשְׂרָד רֹאשׁ הַמֶּמְשָׁלָה");
+        translation.setLanguageShortName("en");
+        translation.setName("Ministry of Finance");
         GovernmentTranslationModel expectedModel = new GovernmentTranslationModel()
-                .languageShortName("il")
-                .name("מִשְׂרָד רֹאשׁ הַמֶּמְשָׁלָה");
+                .languageShortName("en")
+                .name("Ministry of Finance");
 
 
         // When
         GovernmentTranslationModel model = Mapper.mapGovernmentTranslationToGovernmentAdminModel(translation);
 
         // Then
-        then(model.getLanguageShortName()).isEqualTo("il");
-        then(model.getName()).isEqualTo("מִשְׂרָד רֹאשׁ הַמֶּמְשָׁלָה");
+        then(model.getLanguageShortName()).isEqualTo("en");
+        then(model.getName()).isEqualTo("Ministry of Finance");
         then(model)
                 .isNotNull()
                 .isEqualTo(expectedModel);
@@ -103,12 +103,12 @@ class MapperTest {
         MenuTranslation entity = new MenuTranslation();
         entity.setLanguageShortName("hu");
         entity.setTranslationValue("all");
-        entity.setTranslationValue("Összes");
+        entity.setTranslationValue("All");
 
         MenuTranslationModel expectedModel = new MenuTranslationModel()
                 .languageShortName("hu")
                 .translationKey("all")
-                .translationValue("Összes");
+                .translationValue("All");
         
         // When
         MenuTranslationModel model = Mapper.mapMenuTranslationEntityToModel(entity);

@@ -25,9 +25,9 @@ public class Mapper {
 
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    // TODO write test!
-    // TODO implement function for creating new Representative entity from the incoming fields!
-    // TODO update the api.yaml (e.g. name is prefix, firstname, midname, lastname, suffix) -> so can created English format from it!
+    // write test!
+    // implement function for creating new Representative entity from the incoming fields!
+    // update the api.yaml (e.g. name is prefix, firstname, midname, lastname, suffix) -> so can created English format from it!
     // English or Hebrew name can be only created after we have id
     // (so when entity saved to db) -> so we need to update the entity after saving it to db regarding the languageShortName!
     /*public static Representative mapFieldIntoEntity(String languageShortName, String name, String jobTitle, String government, String secretairat, String address, String phoneNumber, String email, MultipartFile image, String note) {
@@ -79,14 +79,14 @@ public class Mapper {
                 .availability(Availability.valueOf(entity.getAvailability().name()));
     }
 
-    // TODO it is not used yet! it will be needed when adding new Representative is implemented
+    // it is not used yet! it will be needed when adding new Representative is implemented
     /*public static Representative mapNewRepresentativeAdminModelToEntity(NewRepresentativeAdminModel model) {
         Representative entity = new Representative();
         modelMapper.map(model, entity);
         return entity;
     }*/
 
-    // TODO it is not used yet! it will be needed when adding new Government function is implemented
+    // it is not used yet! it will be needed when adding new Government function is implemented
     /*public static GovernmentAdminModel mapGovernmentEntityToAdminModel(Government entity) {
         GovernmentAdminModel model = new GovernmentAdminModel();
         modelMapper.map(entity, model);

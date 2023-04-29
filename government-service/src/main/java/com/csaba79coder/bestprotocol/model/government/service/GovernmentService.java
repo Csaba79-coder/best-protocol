@@ -30,7 +30,7 @@ public class GovernmentService {
      @return a list of GovernmentTranslationModel objects
      */
     public List<GovernmentTranslationModel> findAllGovernmentsByLangAndGovernmentId(String lang) {
-        // TODO from Translation creating immediately the Model!
+        // from Translation creating immediately the Model!
         return governmentTranslationRepository.findGovernmentTranslationByLanguageShortName(lang)
                 .stream()
                 .map(Mapper::mapGovernmentTranslationToGovernmentAdminModel)
