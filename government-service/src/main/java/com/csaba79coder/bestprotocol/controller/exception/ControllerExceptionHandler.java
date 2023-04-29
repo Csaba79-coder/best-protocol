@@ -49,7 +49,7 @@ public class ControllerExceptionHandler {
      @param message The error message.
      @return The response body as a string.
      */
-    public String responseBodyWithMessage(ErrorCode code, String message) {
+    private String responseBodyWithMessage(ErrorCode code, String message) {
         return Map.of(code, message).toString();
     }
 }
