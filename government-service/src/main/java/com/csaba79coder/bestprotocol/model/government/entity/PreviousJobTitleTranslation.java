@@ -12,6 +12,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+
+ Entity class representing the previous job title translation.
+
+ It has a many-to-one relationship with the {@link Representative} entity and stores the translations for the previous job title field in different languages.
+ id inherited from IdentifierLong.
+ */
 @Entity
 @Getter
 @Setter
@@ -20,13 +27,25 @@ import lombok.Setter;
 @Table(name = "previous_job_title_translation")
 public class PreviousJobTitleTranslation extends IdentifierLong {
 
+    /**
+
+     The representative entity that this translation belongs to.
+     */
     @ManyToOne
     @JoinColumn(name = "representative_id")
     private Representative representative;
 
+    /**
+
+     The short name of the language for this translation.
+     */
     @Column(name = "language_short_name")
     private String languageShortName;
 
+    /**
+
+     The translated value of the previous job title field in the language represented by {@link #languageShortName}.
+     */
     @Column(name = "name")
     private String name;
 }

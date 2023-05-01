@@ -25,6 +25,20 @@ import org.hibernate.annotations.Where;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+
+ An entity class that represents a representative. {@link Auditable} Extends from Identifier that represents the
+
+ auto generated UUID for the entity. Extends {@link Auditable} and includes common audit fields such as
+
+ created_at, updated_at, created_by and updated_by. This class is annotated with @Entity and @Table to specify the
+
+ corresponding database table. It also includes a relationship with the {@link Government} entity, and has multiple
+
+ one-to-many relationships with the {@link RepresentativeTranslation} and {@link PreviousJobTitleTranslation} entities.
+
+ The class has fields for the representative's phone number, email, image, availability, and language short name.
+ */
 @Entity
 @Table(name = "representative")
 @Embeddable

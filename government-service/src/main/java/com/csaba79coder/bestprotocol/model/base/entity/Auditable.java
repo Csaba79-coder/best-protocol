@@ -8,6 +8,13 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * A base class for entities that need to be audited. This class provides the common audit fields such as created_at,
+ * updated_at, created_by and updated_by.
+ *
+ * This class is annotated with @MappedSuperclass which means that the properties of this class will be mapped to the
+ * properties of its subclasses.
+ */
 @MappedSuperclass
 @Getter
 public class Auditable extends Identifier {

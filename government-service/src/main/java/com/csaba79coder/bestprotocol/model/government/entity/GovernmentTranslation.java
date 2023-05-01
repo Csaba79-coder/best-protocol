@@ -9,6 +9,11 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+
+ Represents a translation of a {@link Government} entity in a specific language.
+ id inherited from IdentifierLong.
+ */
 @Entity
 @Getter
 @Setter

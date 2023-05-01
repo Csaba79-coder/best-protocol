@@ -8,13 +8,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
+/**
+
+ This repository interface provides access to the "representative" table in the database. It extends the Spring Data JPA
+
+ {@link JpaRepository} interface and provides additional methods to query the Representative entities by government ID.
+
+ The generic type parameters of {@link JpaRepository} are set to {@link Representative} and {@link UUID} to indicate
+
+ the entity type and ID type respectively.
+ */
 @Repository
 public interface RepresentativeRepository extends JpaRepository<Representative, UUID> {
-    // List<RepresentativeAdminModel> findRepresentativeByGovernmentId(Long id);
-    // Page<RepresentativeAdminModel> findByGovernmentId(@Param("government_id") Long governmentId, Pageable pageable);
-    List<Representative> findRepresentativeByLanguageShortNameAndGovernmentId(@Param("language_short_name") String languageShortname, @Param("government_id") Long governmentId);
-    List<Representative> findAllByLanguageShortName(String languageShortName);
-    Representative findRepresentativeByLanguageShortName(String languageShortName);
 
     List<Representative> findRepresentativeByGovernmentId( @Param("government_id") Long governmentId);
 }

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 
+// It was used to populate the database with some data. (for testing)
+// It is not used anymore.
 // @Component
 @RequiredArgsConstructor
 public class DataLoader implements ApplicationRunner {
