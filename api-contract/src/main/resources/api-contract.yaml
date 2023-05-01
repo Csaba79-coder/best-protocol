@@ -11,8 +11,37 @@ tags:
   - name: government-representative
   - name: government
   - name: menu
+  - name: index
 
 paths:
+  /:
+    get:
+      summary: Get the index page
+      description: Get the index page
+      operationId: renderIndexPage
+      tags:
+        - index
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/html:
+              schema:
+                type: string
+  /index:
+    get:
+      summary: Get the index page
+      description: Get the index page
+      operationId: renderIndexPage
+      tags:
+        - index
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/html:
+              schema:
+                type: string
   /{languageShortName}/api/admin/gov-representatives:
     post:
       tags:
