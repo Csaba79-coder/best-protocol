@@ -93,4 +93,5 @@ bin/
 /discovery-server/target/
 /api-gateway/target/
 /logging-service/target/
+/user-service/target/
 /frontend/build/
