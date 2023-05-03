@@ -20,6 +20,7 @@
         <module>government-service</module>
         <module>discovery-server</module>
         <module>api-gateway</module>
+        <module>logging-service</module>
     </modules>
 
     <properties>
