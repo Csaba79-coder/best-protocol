@@ -18,3 +18,17 @@ com.csaba79coder.bestprotocol.model.value
 com.csaba79coder.bestprotocol.util
 com.csaba79coder.bestprotocol.util.mapper
 com.csaba79coder.discoveryserver
+com.csaba79coder.loggingservice
+com.csaba79coder.loggingservice.controller
+com.csaba79coder.loggingservice.model.entity
+com.csaba79coder.loggingservice.model.persistence
+com.csaba79coder.loggingservice.model.service
+com.csaba79coder.loggingservice.util
+com.csaba79coder.userservice
+com.csaba79coder.userservice.controller
+com.csaba79coder.userservice.model.base.entity
+com.csaba79coder.userservice.model.entity
+com.csaba79coder.userservice.model.persistence
+com.csaba79coder.userservice.model.service
+com.csaba79coder.userservice.model.value
+com.csaba79coder.userservice.util

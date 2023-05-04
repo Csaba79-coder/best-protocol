@@ -1,0 +1,656 @@
+{
+	"info": {
+		"_postman_id": "db36b327-2969-4f1f-b3d8-cc2b2820328f",
+		"name": "best-protocol",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18091890"
+	},
+	"item": [
+		{
+			"name": "Render All Representatives",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/gov-representatives",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"gov-representatives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render All Representatives By Search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/gov-representatives",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"gov-representatives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render Representatives By GovernmentId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/gov-representatives/governments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"gov-representatives",
+						"governments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render Representatives By GovernmentId Id And Search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/gov-representatives/governments/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"gov-representatives",
+						"governments",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render All Governments By Language",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/governments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"governments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render All Governments By Hebrew Language",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/governments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"governments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render All Governments By Hungarian",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/governments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"governments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Representative",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Csaba Vadasz",
+							"type": "text"
+						},
+						{
+							"key": "government",
+							"value": "Miniszterelnökség",
+							"type": "text"
+						},
+						{
+							"key": "secretairat",
+							"value": "Miniszterelnöki Titkárság",
+							"type": "text"
+						},
+						{
+							"key": "jobTitle",
+							"value": "Miniszterelnökséget vezető miniszter",
+							"type": "text"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "+36-30-235-6304",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "csabavadasz79@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Computer/Documents/Java/Progmatic/best-protocol/government-service/src/main/resources/static/images/placeholder.png"
+						},
+						{
+							"key": "note",
+							"value": "Ételérzékenység: nincs",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "2011 Budakalász, Gerinc utca hrsz. 2287/3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/gov-representatives",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"gov-representatives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Representative Not Hungarian",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Jichák Hercog",
+							"type": "text"
+						},
+						{
+							"key": "government",
+							"value": "Miniszterelnökség",
+							"type": "text"
+						},
+						{
+							"key": "secretairat",
+							"value": "N/A",
+							"type": "text"
+						},
+						{
+							"key": "jobTitle",
+							"value": "Miniszterelnök",
+							"type": "text"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "+44-......",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "secret@secret.com",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Computer/Desktop/JichákHercog.png"
+						},
+						{
+							"key": "note",
+							"value": "Ételérzékenység: nem eszik disznó húst",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "91096 Jeruzsálem, Secret street 0",
+							"type": "text"
+						},
+						{
+							"key": "lang",
+							"value": "il",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/gov-representatives",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"gov-representatives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Representative Without Image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Elek Teszt",
+							"type": "text"
+						},
+						{
+							"key": "jobTitle",
+							"value": "Pénzügyminiszter",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "1077 Budapest, Rózsa utca 40/A",
+							"type": "text"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "+36-30-111-11111",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "tesztelek@teszt.com",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "note",
+							"value": "Ételérzékenység: tejallergia",
+							"type": "text"
+						},
+						{
+							"key": "government",
+							"value": "Pénzügyminisztérium",
+							"type": "text"
+						},
+						{
+							"key": "secretairat",
+							"value": "Pénzügyi Titkárság",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/gov-representatives",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"gov-representatives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render All Menu",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hu/api/admin/menu?translationKey=all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hu",
+						"api",
+						"admin",
+						"menu"
+					],
+					"query": [
+						{
+							"key": "translationKey",
+							"value": "all"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new log to log-service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"test log from postman with hour and min right format\",\r\n    \"level\": \"info\",\r\n    \"serviceName\": \"logging-service\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/logging-service/log",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"logging-service",
+						"log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render all logs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/admin/logging-service/log",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"logging-service",
+						"log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Render All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/admin/user-service/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"user-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Csaba Vadasz\",\r\n    \"email\": \"csabavadasz79@gmail.com\",\r\n    \"password\": \"Almafa1234?\",\r\n    \"repeatPassword\": \"Almafa1234?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/user-service/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"user-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new User For Modify",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Teszt Elek\",\r\n    \"email\": \"milton-teszt@gmail.com\",\r\n    \"password\": \"Almafa1234?\",\r\n    \"repeatPassword\": \"Almafa1234?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/user-service/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"user-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new User With Existing Email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Csaba Vadasz\",\r\n    \"email\": \"csabavadasz79@gmail.com\",\r\n    \"password\": \"Almafa1234?\",\r\n    \"repeatPassword\": \"Almafa1234?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/user-service/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"user-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find User by Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Csaba Vadasz\",\r\n    \"email\": \"csabavadasz79@gmail.com\",\r\n    \"password\": \"Almafa1234?\",\r\n    \"repeatPassword\": \"Almafa1234?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/user-service/users/641ec24d-5256-4405-81f8-1c6bf06945f5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"user-service",
+						"users",
+						"641ec24d-5256-4405-81f8-1c6bf06945f5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify An Existing User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"role\": \"ADMIN\",\r\n    \"availability\": \"ARCHIVE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/user-service/users/55722a26-757d-4280-8173-8dc5d9222d55",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"user-service",
+						"users",
+						"55722a26-757d-4280-8173-8dc5d9222d55"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
