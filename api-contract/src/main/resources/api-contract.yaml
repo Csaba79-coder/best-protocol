@@ -13,6 +13,7 @@ tags:
   - name: menu
   - name: index
   - name: log
+  - name: user
 
 paths:
   /:
@@ -310,7 +311,7 @@ paths:
     get:
       tags:
         - log
-      summary: Get all log
+      summary: Get all logs
       operationId: renderAllLogs
       responses:
         '200':
@@ -352,6 +353,120 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoggingModel'
+        '405':
+          description: Invalid input
+
+  /api/admin/user-service/users:
+    get:
+      tags:
+        - user
+      summary: Get all Users
+      operationId: renderAllUsers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserModel'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: User not found
+        '405':
+          description: Validation exception
+
+    post:
+      tags:
+        - user
+      summary: Add new user in a service
+      description: Add new user in a service and save to database
+      operationId: addNewUser
+      requestBody:
+        description: Create a user and store it
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserNewModel'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserModel'
+        '405':
+          description: Invalid input
+
+  /api/admin/user-service/users/{userId}:
+    get:
+      tags:
+        - user
+      summary: Get user by Id
+      operationId: renderUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserModel'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: User not found
+        '405':
+          description: Validation exception
+
+    put:
+      tags:
+        - user
+      summary: Modify an existing user in a service
+      description: Modify an existing user in a service and save to database
+      operationId: modifyUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+      requestBody:
+        description: Create a user and store it
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserModifyModel'
         '405':
           description: Invalid input
 
@@ -590,3 +705,75 @@ components:
           type: string
         serviceName:
           type: string
+
+    UserNewModel:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        repeatPassword:
+          type: string
+        email:
+          type: string
+      required:
+        - username
+        - password
+        - repeatPassword
+        - email
+
+    UserModel:
+      type: object
+      properties:
+        id:
+          description: Id of the User
+          type: string
+          format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+        createdAt:
+          description: Creation time of User entity
+          type: string
+          format: datetime
+          example: '2019-01-21T05:47:08.644'
+        updatedAt:
+          description: Updated time of User entity
+          type: string
+          format: datetime
+          example: '2019-01-21T05:47:08.644'
+        createdBy:
+          description: Admin id who created the User entity
+          type: string
+          format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+        updatedBy:
+          description: User/Admin id who updated the User entity and with setting availability to DELETE, will achieve a soft delete
+          type: string
+          format: uuid
+          example: '3a8ea9f1-1a95-4caf-932f-2f988052933b'
+        username:
+          type: string
+        email:
+            type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        availability:
+          $ref: '#/components/schemas/Availability'
+    UserModifyModel:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        availability:
+          $ref: '#/components/schemas/Availability'
+
+    Role:
+      type: string
+      enum:
+        - ADMIN
+        - USER
+        - SUPER_ADMIN
